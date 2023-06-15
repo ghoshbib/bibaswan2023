@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Subreport Name="IntDiffLive">
+        <ReportName>Interaction Difficulty Report - Live</ReportName>
+        <Parameters>
+          <Parameter Name="Project">
+            <Value>=Parameters!Project.Value</Value>
+          </Parameter>
+          <Parameter Name="TestID">
+            <Value>=Parameters!TestID.Value</Value>
+          </Parameter>
+        </Parameters>
+        <Height>1.35583cm</Height>
+        <Width>25.69104cm</Width>
+        <Visibility>
+          <Hidden>=Parameters!Database.Value &lt;&gt; "L"</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+      <Subreport Name="IntDiffQA">
+        <ReportName>Interaction Difficulty Report - QA</ReportName>
+        <Parameters>
+          <Parameter Name="Project">
+            <Value>=Parameters!Project.Value</Value>
+          </Parameter>
+          <Parameter Name="TestID">
+            <Value>=Parameters!TestID.Value</Value>
+          </Parameter>
+        </Parameters>
+        <Top>1.35583cm</Top>
+        <Height>1.35583cm</Height>
+        <Width>25.69104cm</Width>
+        <ZIndex>1</ZIndex>
+        <Visibility>
+          <Hidden>=Parameters!Database.Value &lt;&gt; "Q"</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+      <Subreport Name="IntDiffAdmin">
+        <ReportName>Interaction Difficulty Report - Admin</ReportName>
+        <Parameters>
+          <Parameter Name="Project">
+            <Value>=Parameters!Project.Value</Value>
+          </Parameter>
+          <Parameter Name="TestID">
+            <Value>=Parameters!TestID.Value</Value>
+          </Parameter>
+        </Parameters>
+        <Top>2.71166cm</Top>
+        <Height>1.35583cm</Height>
+        <Width>25.69104cm</Width>
+        <ZIndex>2</ZIndex>
+        <Visibility>
+          <Hidden>=Parameters!Database.Value &lt;&gt; "A"</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+      <Subreport Name="IntAttrLive">
+        <ReportName>Item Attributes Report - Live</ReportName>
+        <Parameters>
+          <Parameter Name="Project">
+            <Value>=Parameters!Project.Value</Value>
+          </Parameter>
+          <Parameter Name="TestID">
+            <Value>=Parameters!TestID.Value</Value>
+          </Parameter>
+        </Parameters>
+        <Top>4.06749cm</Top>
+        <Height>1.35583cm</Height>
+        <Width>25.69104cm</Width>
+        <ZIndex>3</ZIndex>
+        <Visibility>
+          <Hidden>=Parameters!Database.Value &lt;&gt; "L"</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+      <Subreport Name="IntAttrQA">
+        <ReportName>Item Attributes Report - QA</ReportName>
+        <Parameters>
+          <Parameter Name="Project">
+            <Value>=Parameters!Project.Value</Value>
+          </Parameter>
+          <Parameter Name="TestID">
+            <Value>=Parameters!TestID.Value</Value>
+          </Parameter>
+        </Parameters>
+        <Top>5.42332cm</Top>
+        <Height>1.35583cm</Height>
+        <Width>25.69104cm</Width>
+        <ZIndex>4</ZIndex>
+        <Visibility>
+          <Hidden>=Parameters!Database.Value &lt;&gt; "Q"</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+      <Subreport Name="IntAttrAdmin">
+        <ReportName>Item Attributes Report - Admin</ReportName>
+        <Parameters>
+          <Parameter Name="Project">
+            <Value>=Parameters!Project.Value</Value>
+          </Parameter>
+          <Parameter Name="TestID">
+            <Value>=Parameters!TestID.Value</Value>
+          </Parameter>
+        </Parameters>
+        <Top>6.77915cm</Top>
+        <Height>1.35583cm</Height>
+        <Width>25.69104cm</Width>
+        <ZIndex>5</ZIndex>
+        <Visibility>
+          <Hidden>=Parameters!Database.Value &lt;&gt; "A"</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+    </ReportItems>
+    <Height>3.20275in</Height>
+    <Style />
+  </Body>
+  <Width>10.11458in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <ReportParameters>
+    <ReportParameter Name="Project">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Project</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TestID">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Test ID</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Database">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>L</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Database</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>L</Value>
+            <Label>Live</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Q</Value>
+            <Label>Live QA</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>A</Value>
+            <Label>Admin</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>3eedffac-13e1-4232-9181-887bd09fbc93</rd:ReportID>
+</Report>

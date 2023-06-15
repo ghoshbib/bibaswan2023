@@ -1,0 +1,447 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "azureeventgridpublish_1_Connection_Name": {
+      "type": "string",
+      "defaultValue": "azureeventgridpublish-3"
+    },
+    "azureeventgridpublish_1_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "ElitMessageHandlerTopicDev"
+    },
+    "azureeventgridpublish_1_endpoint": {
+      "type": "string",
+      "metadata": {
+        "description": "DNS endpoint for the application topic for events."
+      },
+      "defaultValue": "https://elitmessagehandlertopicdev.northeurope-1.eventgrid.azure.net/api/events"
+    },
+    "azureeventgridpublish_1_api_key": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Primary or secondary key for the application topic."
+      }
+    },
+    "azureeventgrid_1_Connection_Name": {
+      "type": "string",
+      "defaultValue": "SubmitSpeech"
+    },
+    "azureeventgrid_1_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "SubmitSpeech"
+    },
+    "azureeventgrid_1_token:clientId": {
+      "type": "string",
+      "metadata": {
+        "description": "Client (or Application) ID of the Azure Active Directory application."
+      },
+      "defaultValue": "46a4ad0b-bc1c-4df6-bfb4-06a9e0cec7af"
+    },
+    "azureeventgrid_1_token:clientSecret": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Client secret of the Azure Active Directory application."
+      },
+      "defaultValue": "MkcIcmE1cftluYW787T19gRLbSDUjVA6ZCUaIKcXkLM="
+    },
+    "azureeventgrid_1_token:TenantId": {
+      "type": "string",
+      "metadata": {
+        "description": "The tenant ID of for the Azure Active Directory application."
+      },
+      "defaultValue": "2f73e501-3af3-4b71-a8ac-04ea8198a9dc"
+    },
+    "azureeventgrid_1_token:grantType": {
+      "type": "string",
+      "metadata": {
+        "description": "Grant type"
+      },
+      "defaultValue": "client_credentials",
+      "allowedValues": [
+        "code",
+        "client_credentials"
+      ]
+    },
+    "LogicAppLocation": {
+      "type": "string",
+      "minLength": 1,
+      "allowedValues": [
+        "[resourceGroup().location]",
+        "eastasia",
+        "southeastasia",
+        "centralus",
+        "eastus",
+        "eastus2",
+        "westus",
+        "northcentralus",
+        "southcentralus",
+        "northeurope",
+        "westeurope",
+        "japanwest",
+        "japaneast",
+        "brazilsouth",
+        "australiaeast",
+        "australiasoutheast",
+        "southindia",
+        "centralindia",
+        "westindia",
+        "canadacentral",
+        "canadaeast",
+        "uksouth",
+        "ukwest",
+        "westcentralus",
+        "westus2"
+      ],
+      "defaultValue": "northeurope"
+    },
+    "triggerTopic": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "sasUrl": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "appinsightsUrl": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "integrationTopicUrl": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "integrationsaskey": {
+      "type": "string",
+      "defaultValue": ""
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "properties": {
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "actions": {
+            "GenerateSASKeyScope": {
+              "type": "Scope",
+              "actions": {
+                "GenerateSASKey": {
+                  "type": "Function",
+                  "inputs": {
+                    "body": "@triggerBody()",
+                    "method": "POST",
+                    "function": {
+                      "id": "[parameters('sasUrl')]"
+                    }
+                  },
+                  "runAfter": {}
+                },
+                "GenerateSASKeyFailed": {
+                  "type": "Scope",
+                  "actions": {
+                    "GenerateSASKeyFailure": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "LogMessage",
+                        "value": "{\n\"eventId\":\"@{triggerBody()?['id']}\",\n\"messageId\":\"@{triggerBody()?['data']['msgSubmitSpeech'][0]['messageId']}\",\n     \"source\":\"Metrica\", \n\"interfaceName\":\"Submit Speech\",   \n   \"context\":\"@{triggerBody()?['data']['msgSubmitSpeech'][0]['messageId']}\", \n     \"contextType\":\"Message Id\",   \n   \"action\":\"Submit speech generate SAS Key\",    \n  \"status\":\"Failure\",\n      \"statusCode\":@{outputs('GenerateSASKey')['statusCode']},   \n   \"message\":@{body('GenerateSASKey')},   \n   \"messageType\":\"Exception\",\n      \"workflowID\":\"@{workflow()['run']['name']}\",     \n \"dateTime\":\"@{utcNow()}\"\n}"
+                      },
+                      "runAfter": {}
+                    },
+                    "HttpTriggerLogToAppinsights_GenerateSASKeyFailure": {
+                      "type": "Function",
+                      "inputs": {
+                        "body": "@variables('LogMessage')",
+                        "method": "POST",
+                        "headers": {
+                          "Content-Type": "application/json"
+                        },
+                        "function": {
+                          "id": "[parameters('appinsightsUrl')]"
+                        }
+                      },
+                      "runAfter": {
+                        "GenerateSASKeyFailure": [
+                          "Succeeded"
+                        ]
+                      }
+                    },
+                    "Publish_Event_to_Exception_Handler_for_SasKey": {
+                      "type": "ApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['azureeventgridpublish']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "body": [
+                          {
+                            "data": {
+                              "AnswerId": "@triggerBody()['data']['msgSubmitSpeech'][0]['answerId']",
+                              "ErrorCode": "@outputs('GenerateSASKey')['statusCode']",
+                              "ErrorMessage": "SAS Token Generation Failed",
+                              "EventTime": "@utcNow()",
+                              "IsExceptionRaised": "N",
+                              "IsSentForArchive": "N",
+                              "MessageId": "@triggerBody()['data']['msgSubmitSpeech'][0]['messageId']",
+                              "PartitionKey": "@{encodeURIComponent(substring(triggerBody()['data']['msgSubmitSpeech'][0]['answerId'], 0, 2))}",
+                              "RowKey": "@triggerBody()?['data']['msgSubmitSpeech'][0]['answerId']",
+                              "Status": "SASKeyFailure"
+                            },
+                            "eventTime": "@{utcNow()}",
+                            "eventType": "Submit Speech",
+                            "id": "@{guid()}",
+                            "subject": "Submit Speech"
+                          }
+                        ],
+                        "path": "/eventGrid/api/events"
+                      },
+                      "runAfter": {
+                        "HttpTriggerLogToAppinsights_GenerateSASKeyFailure": [
+                          "Succeeded"
+                        ]
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "GenerateSASKey": [
+                      "Failed"
+                    ]
+                  }
+                },
+                "GenerateSASKeySuccess": {
+                  "type": "Scope",
+                  "actions": {
+                    "HttpTriggerLogToAppinsights__SendToIntegrationEventGrid_Failure": {
+                      "type": "Function",
+                      "inputs": {
+                        "body": "@variables('LogMessage')",
+                        "method": "POST",
+                        "function": {
+                          "id": "[parameters('appinsightsUrl')]"
+                        }
+                      },
+                      "runAfter": {
+                        "SendToIntegrationFailure": [
+                          "Succeeded"
+                        ]
+                      }
+                    },
+                    "HttpTriggerLogToAppinsights__SendToIntegrationEventGrid_Success": {
+                      "type": "Function",
+                      "inputs": {
+                        "body": "@variables('LogMessage')",
+                        "method": "POST",
+                        "function": {
+                          "id": "[parameters('appinsightsUrl')]"
+                        }
+                      },
+                      "runAfter": {
+                        "SendToIntegrationSuccess": [
+                          "Succeeded"
+                        ]
+                      }
+                    },
+                    "Publish_Event_to_Exception_Handler_for_Integration": {
+                      "type": "ApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['azureeventgridpublish']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "body": [
+                          {
+                            "data": {
+                              "AnswerId": "@triggerBody()['data']['msgSubmitSpeech'][0]['answerId']",
+                              "ErrorCode": "@outputs('Submit_Speech_To_Integration_EventGrid')['statusCode']",
+                              "ErrorMessage": "Technical error into the Intergration Layer",
+                              "EventTime": "@utcNow()",
+                              "IsExceptionRaised": "N",
+                              "IsSentForArchive": "N",
+                              "MessageId": "@triggerBody()['data']['msgSubmitSpeech'][0]['messageId']",
+                              "PartitionKey": "@{encodeURIComponent(substring(triggerBody()['data']['msgSubmitSpeech'][0]['answerId'], 0, 2))}",
+                              "RowKey": "@triggerBody()?['data']['msgSubmitSpeech'][0]['answerId']",
+                              "Status": "SendToIntegrationFailure"
+                            },
+                            "eventTime": "@{utcNow()}",
+                            "eventType": "Submit Speech",
+                            "id": "@{guid()}",
+                            "subject": "Submit Speech"
+                          }
+                        ],
+                        "path": "/eventGrid/api/events"
+                      },
+                      "runAfter": {
+                        "HttpTriggerLogToAppinsights__SendToIntegrationEventGrid_Failure": [
+                          "Succeeded"
+                        ]
+                      }
+                    },
+                    "SendToIntegrationFailure": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "LogMessage",
+                        "value": "{\n\"eventId\":\"@{triggerBody()?['id']}\",\n\"messageId\":\"@{triggerBody()?['data']['msgSubmitSpeech'][0]['messageId']}\",\n     \"source\":\"Metrica\", \n\"interfaceName\":\"Submit Speech\",   \n   \"context\":\"@{triggerBody()?['data']['msgSubmitSpeech'][0]['messageId']}\", \n     \"contextType\":\"Message Id\",   \n   \"action\":\"Submit speech send to Integration Topic\",    \n  \"status\":\"Failure\",\n      \"statusCode\":\"@{outputs('Submit_Speech_To_Integration_EventGrid')['statusCode']}\",   \n\"message\":@{body('Submit_Speech_To_Integration_EventGrid')['error']},\n   \"messageType\":\"Exception\",\n      \"workflowID\":\"@{workflow()['run']['name']}\",     \n \"dateTime\":\"@{utcNow()}\"\n}"
+                      },
+                      "runAfter": {
+                        "Submit_Speech_To_Integration_EventGrid": [
+                          "Failed",
+                          "TimedOut"
+                        ]
+                      }
+                    },
+                    "SendToIntegrationSuccess": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "LogMessage",
+                        "value": "{\n\"eventId\":\"@{triggerBody()?['id']}\",\n\"messageId\":\"@{triggerBody()?['data']['msgSubmitSpeech'][0]['messageId']}\",\n     \"source\":\"Metrica\", \n\"interfaceName\":\"Submit Speech\",   \n   \"context\":\"@{triggerBody()?['data']['msgSubmitSpeech'][0]['messageId']}\", \n     \"contextType\":\"Message Id\",   \n   \"action\":\"Submit speech send to Integration Topic\",    \n  \"status\":\"Success\",\n      \"statusCode\":@{outputs('Submit_Speech_To_Integration_EventGrid')['statusCode']},   \n   \"message\":@{null},   \n   \"messageType\":\"Success\",\n      \"workflowID\":\"@{workflow()['run']['name']}\",     \n \"dateTime\":\"@{utcNow()}\"\n}"
+                      },
+                      "runAfter": {
+                        "Submit_Speech_To_Integration_EventGrid": [
+                          "Succeeded"
+                        ]
+                      }
+                    },
+                    "Submit_Speech_To_Integration_EventGrid": {
+                      "type": "Http",
+                      "inputs": {
+                        "method": "POST",
+                        "uri": "[parameters('integrationTopicUrl')]",
+                        "headers": {
+                          "aeg-sas-key": "[parameters('integrationsaskey')]"
+                        },
+                        "body": "@body('GenerateSASKey')"
+                      },
+                      "runAfter": {}
+                    }
+                  },
+                  "runAfter": {
+                    "GenerateSASKey": [
+                      "Succeeded"
+                    ]
+                  }
+                }
+              },
+              "runAfter": {
+                "InitializeLogVariable": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "InitializeLogVariable": {
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "LogMessage",
+                    "type": "String"
+                  }
+                ]
+              },
+              "runAfter": {}
+            }
+          },
+          "parameters": {
+            "$connections": {
+              "defaultValue": {},
+              "type": "Object"
+            }
+          },
+          "triggers": {
+            "When_a_resource_event_occurs": {
+              "type": "ApiConnectionWebhook",
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['azureeventgrid']['connectionId']"
+                  }
+                },
+                "body": {
+                  "properties": {
+                    "topic": "[parameters('triggerTopic')]",
+                    "destination": {
+                      "endpointType": "webhook",
+                      "properties": {
+                        "endpointUrl": "@{listCallbackUrl()}"
+                      }
+                    }
+                  }
+                },
+                "path": "/subscriptions/@{encodeURIComponent('2c903d74-e077-4eb2-8c79-c2f78c078c90')}/providers/@{encodeURIComponent('Microsoft.EventGrid.Topics')}/resource/eventSubscriptions",
+                "queries": {
+                  "x-ms-api-version": "2017-06-15-preview"
+                }
+              },
+              "splitOn": "@triggerBody()"
+            }
+          },
+          "contentVersion": "1.0.0.0",
+          "outputs": {}
+        },
+        "parameters": {
+          "$connections": {
+            "value": {
+              "azureeventgridpublish": {
+                "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('LogicAppLocation'), '/managedApis/', 'azureeventgridpublish')]",
+                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('azureeventgridpublish_1_Connection_Name'))]",
+                "connectionName": "[parameters('azureeventgridpublish_1_Connection_Name')]"
+              },
+              "azureeventgrid": {
+                "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('LogicAppLocation'), '/managedApis/', 'azureeventgrid')]",
+                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('azureeventgrid_1_Connection_Name'))]",
+                "connectionName": "[parameters('azureeventgrid_1_Connection_Name')]"
+              }
+            }
+          }
+        }
+      },
+      "name": "SubmitSpeech",
+      "type": "Microsoft.Logic/workflows",
+      "location": "[parameters('LogicAppLocation')]",
+      "apiVersion": "2016-06-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/connections', parameters('azureeventgridpublish_1_Connection_Name'))]",
+        "[resourceId('Microsoft.Web/connections', parameters('azureeventgrid_1_Connection_Name'))]"
+      ]
+    },
+    {
+      "type": "MICROSOFT.WEB/CONNECTIONS",
+      "apiVersion": "2016-06-01",
+      "name": "[parameters('azureeventgridpublish_1_Connection_Name')]",
+      "location": "[parameters('LogicAppLocation')]",
+      "properties": {
+        "api": {
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('LogicAppLocation'), '/managedApis/', 'azureeventgridpublish')]"
+        },
+        "displayName": "[parameters('azureeventgridpublish_1_Connection_DisplayName')]",
+        "parameterValues": {
+          "endpoint": "[parameters('azureeventgridpublish_1_endpoint')]",
+          "api_key": "[parameters('azureeventgridpublish_1_api_key')]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "[parameters('azureeventgrid_1_Connection_Name')]",
+      "location": "[parameters('LogicAppLocation')]",
+      "properties": {
+        "api": {
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('LogicAppLocation'), '/managedApis/', 'azureeventgrid')]"
+        },
+        "displayName": "[parameters('azureeventgrid_1_Connection_DisplayName')]",
+        "parameterValues": {
+          "token:clientId": "[parameters('azureeventgrid_1_token:clientId')]",
+          "token:clientSecret": "[parameters('azureeventgrid_1_token:clientSecret')]",
+          "token:TenantId": "[parameters('azureeventgrid_1_token:TenantId')]",
+          "token:grantType": "[parameters('azureeventgrid_1_token:grantType')]"
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}

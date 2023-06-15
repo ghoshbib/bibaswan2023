@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Chart Name="Chart3">
+        <ChartCategoryHierarchy>
+          <ChartMembers>
+            <ChartMember>
+              <Group Name="Chart1_CategoryGroup3">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!TSAOverall.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=IIF(InStr(Fields!TSAOverall.Value,".") = 2, "0" &amp; Fields!TSAOverall.Value, Fields!TSAOverall.Value)</Value>
+                </SortExpression>
+              </SortExpressions>
+              <Label>=Fields!TSAOverall.Value</Label>
+            </ChartMember>
+          </ChartMembers>
+        </ChartCategoryHierarchy>
+        <ChartSeriesHierarchy>
+          <ChartMembers>
+            <ChartMember>
+              <Group Name="Chart1_SeriesGroup3">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!TSAOverall.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!TSAOverall.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <Label>=Fields!TSAOverall.Value</Label>
+            </ChartMember>
+          </ChartMembers>
+        </ChartSeriesHierarchy>
+        <ChartData>
+          <ChartSeriesCollection>
+            <ChartSeries Name="USR_LOGIN">
+              <ChartDataPoints>
+                <ChartDataPoint>
+                  <ChartDataPointValues>
+                    <Y>=Count(Fields!USR_LOGIN.Value)</Y>
+                  </ChartDataPointValues>
+                  <ChartDataLabel>
+                    <Style />
+                  </ChartDataLabel>
+                  <ToolTip>=Count(Fields!TSAOverall.Value) &amp; " candidate(s) scored " &amp; Fields!TSAOverall.Value</ToolTip>
+                  <Style>
+                    <Color>=IIF(Fields!TSAOverall.Value=Parameters!CandScore.Value,"Red","Silver")</Color>
+                  </Style>
+                  <ChartMarker>
+                    <Style />
+                  </ChartMarker>
+                  <DataElementOutput>Output</DataElementOutput>
+                </ChartDataPoint>
+              </ChartDataPoints>
+              <Subtype>Stacked</Subtype>
+              <Style />
+              <ChartEmptyPoints>
+                <Style />
+                <ChartMarker>
+                  <Style />
+                </ChartMarker>
+                <ChartDataLabel>
+                  <Style />
+                </ChartDataLabel>
+              </ChartEmptyPoints>
+              <ValueAxisName>Primary</ValueAxisName>
+              <CategoryAxisName>Primary</CategoryAxisName>
+              <ChartSmartLabel>
+                <CalloutLineColor>Black</CalloutLineColor>
+                <MinMovingDistance>0pt</MinMovingDistance>
+              </ChartSmartLabel>
+            </ChartSeries>
+          </ChartSeriesCollection>
+        </ChartData>
+        <ChartAreas>
+          <ChartArea Name="Default">
+            <ChartCategoryAxes>
+              <ChartAxis Name="Primary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>="Overall TSA Score" &amp; vbCrLf &amp; "Candidate Sample Size: " &amp; Count(Fields!USR_LOGIN.Value)</Caption>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </ChartAxisTitle>
+                <Interval>1</Interval>
+                <ChartMajorGridLines>
+                  <Enabled>False</Enabled>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+              <ChartAxis Name="Secondary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>Axis Title</Caption>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Enabled>False</Enabled>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Location>Opposite</Location>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+            </ChartCategoryAxes>
+            <ChartValueAxes>
+              <ChartAxis Name="Primary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>No. Candidates</Caption>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+              <ChartAxis Name="Secondary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>Axis Title</Caption>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Location>Opposite</Location>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+            </ChartValueAxes>
+            <Style>
+              <BackgroundGradientType>None</BackgroundGradientType>
+            </Style>
+          </ChartArea>
+        </ChartAreas>
+        <ChartTitles>
+          <ChartTitle Name="Default">
+            <Caption>="College Only – " &amp; Parameters!CandName.Value</Caption>
+            <Style>
+              <BackgroundGradientType>None</BackgroundGradientType>
+              <FontSize>18pt</FontSize>
+              <FontWeight>Bold</FontWeight>
+              <TextAlign>General</TextAlign>
+              <VerticalAlign>Top</VerticalAlign>
+            </Style>
+          </ChartTitle>
+        </ChartTitles>
+        <Palette>BrightPastel</Palette>
+        <ChartBorderSkin>
+          <Style>
+            <BackgroundColor>Gray</BackgroundColor>
+            <BackgroundGradientType>None</BackgroundGradientType>
+            <Color>White</Color>
+          </Style>
+        </ChartBorderSkin>
+        <ChartNoDataMessage Name="NoDataMessage">
+          <Caption>No Data Available</Caption>
+          <Style>
+            <BackgroundGradientType>None</BackgroundGradientType>
+            <TextAlign>General</TextAlign>
+            <VerticalAlign>Top</VerticalAlign>
+          </Style>
+        </ChartNoDataMessage>
+        <DataSetName>Aggregations</DataSetName>
+        <Filters>
+          <Filter>
+            <FilterExpression>=IIF(Fields!OVCOLL.Value &lt;&gt; Nothing, Fields!OVCOLL.Value, Fields!INS_ID.Value)</FilterExpression>
+            <Operator>Equal</Operator>
+            <FilterValues>
+              <FilterValue>=Parameters!CandCollege.Value</FilterValue>
+            </FilterValues>
+          </Filter>
+        </Filters>
+        <Height>19.41979cm</Height>
+        <Width>28.40208cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BackgroundColor>White</BackgroundColor>
+          <BackgroundGradientType>None</BackgroundGradientType>
+        </Style>
+      </Chart>
+      <Textbox Name="Textbox1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Return to Overview</Value>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>DarkBlue</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <ActionInfo>
+          <Actions>
+            <Action>
+              <Hyperlink>="javascript: history.go(-1)"</Hyperlink>
+            </Action>
+          </Actions>
+        </ActionInfo>
+        <Top>19.49035cm</Top>
+        <Left>3.06273cm</Left>
+        <Height>0.70583cm</Height>
+        <Width>4.44371cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+          <BackgroundColor>LightGrey</BackgroundColor>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Return to List View</Value>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>DarkBlue</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <ActionInfo>
+          <Actions>
+            <Action>
+              <Hyperlink>="javascript: history.go(-2)"</Hyperlink>
+            </Action>
+          </Actions>
+        </ActionInfo>
+        <Top>20.37256cm</Top>
+        <Left>3.06273cm</Left>
+        <Height>0.70583cm</Height>
+        <Width>4.44371cm</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+          <BackgroundColor>LightGrey</BackgroundColor>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <Height>8.29858in</Height>
+    <Style />
+  </Body>
+  <Width>11.18192in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="MetricaDeliveryLive">
+      <DataSourceReference>MetricaDeliveryLive</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>0c55c130-d31a-489d-9cdb-93f4e91eafcc</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="Aggregations">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@TSAXD">
+            <Value>=Parameters!TSAXD.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@TestYear">
+            <Value>=Parameters!TestYear.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT ASN.ASN_ID, TIN.TST_ID,TIN.TIN_WHEN_STARTED,ASN.ASN_WHEN_STARTED,U.USR_ID,U.INS_ID,CA.ATT_VALUE,
+CB.ATT_VALUE AS OVCOLL, 
+SES.SES_REFERENCE,U.USR_LOGIN,
+IIF(ISNULL(ASN_SOR_FIRSTNAME, '') = '' , U.USR_FIRSTNAME, ASN_SOR_FIRSTNAME) AS USR_FIRSTNAME, 
+IIF(ISNULL(ASN_SOR_SURNAME, '') = '' , U.USR_SURNAME, ASN_SOR_SURNAME) AS USR_SURNAME, 
+IIF(ISNULL(ASN_SOR_DOB, '') = '' , U.USR_DOB, ASN_SOR_DOB) AS USR_DOB, 
+IIF(ISNULL(ASN_SOR_GENDER, '') = '' , U.USR_GENDER, ASN_SOR_GENDER) AS USR_GENDER, 
+U.USR_ATT1,U.USR_ATT2,SES.SES_DELIVERY_METHOD,I.INS_NAME,ROM.ROM_NAME,CT.AGG_VALUE AS CriticalThinking,PS.AGG_VALUE AS ProblemSolving,TSA.AGG_VALUE AS TSAOverall
+FROM ASSIGNMENTS ASN WITH (NOLOCK)
+LEFT JOIN TEST_INSTANCES TIN WITH (NOLOCK)
+ON TIN.TIN_ASSIGNMENT_ID = ASN.ASN_ID
+LEFT JOIN AGGREGATIONS CT WITH (NOLOCK)
+ON CT.TIN_ID = TIN.TIN_ID
+AND CT.AGG_NAME = 'CT_ability'
+LEFT JOIN AGGREGATIONS PS WITH (NOLOCK)
+ON CT.TIN_ID = PS.TIN_ID
+AND PS.AGG_NAME = 'PS_ability'
+LEFT JOIN AGGREGATIONS TSA WITH (NOLOCK)
+ON CT.TIN_ID = TSA.TIN_ID
+AND TSA.AGG_NAME = 'Total_ability'
+LEFT JOIN USERS U WITH (NOLOCK)
+ON TIN.TIN_USER_ID = U.USR_ID
+LEFT JOIN SESSIONS SES WITH (NOLOCK)
+ON SES.SES_ID = ASN.SES_ID
+LEFT JOIN ROOMS ROM WITH (NOLOCK)
+ON ROM.ROM_ID = SES.ROM_ID
+LEFT JOIN INSTITUTIONS I WITH (NOLOCK)
+ON I.INS_ID = U.INS_ID
+LEFT JOIN CUSTOM_ATTRIBUTES CA WITH (NOLOCK)
+ON (CA.USR_ID = U.USR_ID AND CA.ATT_NAME = 'Course code')
+LEFT JOIN CUSTOM_ATTRIBUTES CB WITH (NOLOCK)
+ON (CB.USR_ID = U.USR_ID AND CB.ATT_NAME = 'College')
+WHERE (CT.AGG_NAME = 'CT_ability'
+AND SES_DELIVERY_METHOD IN ('c', 'f', 'o', 's'))
+AND TIN.TST_ID IN
+(
+ SELECT T.TST_ID FROM TESTS T WITH (NOLOCK)
+ INNER JOIN TEST_ATTRIBUTES TAA WITH (NOLOCK)
+ ON TAA.TST_ID = T.TST_ID AND TAA.ATT_ID = 'Cam Test Year'
+ LEFT JOIN TEST_ATTRIBUTES TAB WITH (NOLOCK)
+ ON TAB.TST_ID = T.TST_ID AND TAB.ATT_ID = 'CT Only'
+ WHERE @TSAXD = TAB.TAT_VALUE
+ AND TAA.TAT_VALUE = @TestYear
+)
+ORDER BY TSAOverall</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="ASN_ID">
+          <DataField>ASN_ID</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="TST_ID">
+          <DataField>TST_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TIN_WHEN_STARTED">
+          <DataField>TIN_WHEN_STARTED</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="ASN_WHEN_STARTED">
+          <DataField>ASN_WHEN_STARTED</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="USR_ID">
+          <DataField>USR_ID</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="INS_ID">
+          <DataField>INS_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ATT_VALUE">
+          <DataField>ATT_VALUE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OVCOLL">
+          <DataField>OVCOLL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SES_REFERENCE">
+          <DataField>SES_REFERENCE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USR_LOGIN">
+          <DataField>USR_LOGIN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USR_FIRSTNAME">
+          <DataField>USR_FIRSTNAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USR_SURNAME">
+          <DataField>USR_SURNAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USR_DOB">
+          <DataField>USR_DOB</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="USR_GENDER">
+          <DataField>USR_GENDER</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USR_ATT1">
+          <DataField>USR_ATT1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USR_ATT2">
+          <DataField>USR_ATT2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SES_DELIVERY_METHOD">
+          <DataField>SES_DELIVERY_METHOD</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="INS_NAME">
+          <DataField>INS_NAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ROM_NAME">
+          <DataField>ROM_NAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CriticalThinking">
+          <DataField>CriticalThinking</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProblemSolving">
+          <DataField>ProblemSolving</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TSAOverall">
+          <DataField>TSAOverall</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="TestYear">
+      <DataType>String</DataType>
+      <Prompt>Test Year</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="CandScore">
+      <DataType>String</DataType>
+      <Prompt>CandScore</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="CandName">
+      <DataType>String</DataType>
+      <Prompt>CandName</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="CandCollege">
+      <DataType>String</DataType>
+      <Prompt>CandCollege</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="CandCourse">
+      <DataType>String</DataType>
+      <Prompt>CandCourse</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="TSAXD">
+      <DataType>String</DataType>
+      <Prompt>TSAXD</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>d65a50dc-68f8-4388-bb5f-f10c3ce054eb</rd:ReportID>
+</Report>

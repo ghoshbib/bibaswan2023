@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Tablix Name="test_profile">
+        <TablixCorner>
+          <TablixCornerRows>
+            <TablixCornerRow>
+              <TablixCornerCell>
+                <CellContents>
+                  <Textbox Name="Textbox168">
+                    <CanGrow>true</CanGrow>
+                    <CanShrink>true</CanShrink>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value />
+                            <Style />
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Textbox168</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixCornerCell>
+            </TablixCornerRow>
+          </TablixCornerRows>
+        </TablixCorner>
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>1.99729cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.99729cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox129">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!task_type.Value</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox129</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox155">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!task_type.Value</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox155</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.78521cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox130">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!mean_diff.Value</Value>
+                              <Style>
+                                <Format>0.000;(0.000)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox130</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="mean_num_int">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!mean_num_int.Value</Value>
+                              <Style>
+                                <Format>0.00;(0.00)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>mean_num_int</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <TablixHeader>
+                <Size>0.6cm</Size>
+                <CellContents>
+                  <Textbox Name="Textbox76">
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>Mean Difficulty</Value>
+                            <Style>
+                              <FontSize>11pt</FontSize>
+                              <FontWeight>Bold</FontWeight>
+                            </Style>
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Textbox76</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="task_type">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!task_type.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!task_type.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                </TablixMember>
+              </TablixMembers>
+            </TablixMember>
+            <TablixMember>
+              <Group Name="Group1">
+                <GroupExpressions>
+                  <GroupExpression>Number</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>Number</Value>
+                </SortExpression>
+              </SortExpressions>
+              <TablixMembers>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.6cm</Size>
+                    <CellContents>
+                      <Textbox Name="task_type">
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Mean Number of Interactions</Value>
+                                <Style>
+                                  <FontSize>11pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>task_type</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember>
+                      <Group Name="task_type1">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!task_type.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
+                      <SortExpressions>
+                        <SortExpression>
+                          <Value>=Fields!task_type.Value</Value>
+                        </SortExpression>
+                      </SortExpressions>
+                      <TablixMembers>
+                        <TablixMember />
+                      </TablixMembers>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+              </TablixMembers>
+            </TablixMember>
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <TablixHeader>
+                <Size>2.5cm</Size>
+                <CellContents>
+                  <Textbox Name="Textbox125">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value />
+                            <Style />
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Textbox125</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+              <KeepWithGroup>After</KeepWithGroup>
+            </TablixMember>
+            <TablixMember>
+              <Group Name="cefr_level1">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!cefr_level.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!cefr_order.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <TablixHeader>
+                <Size>2.5cm</Size>
+                <CellContents>
+                  <Textbox Name="cefr_level1">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>=Fields!cefr_level.Value</Value>
+                            <Style>
+                              <FontWeight>Bold</FontWeight>
+                            </Style>
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>cefr_level1</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+              <TablixMembers>
+                <TablixMember />
+              </TablixMembers>
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>Test_Profile</DataSetName>
+        <SortExpressions>
+          <SortExpression>
+            <Value>=Fields!cefr_order.Value</Value>
+          </SortExpression>
+        </SortExpressions>
+        <Top>1.13453cm</Top>
+        <Height>1.98521cm</Height>
+        <Width>6.49458cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
+      <Textbox Name="title_box">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="Adaptive Test Profile for " &amp; Join(Parameters!tst_id.Value, ", ")
+	&amp; 
+	Iif(IsNothing(Parameters!test_start.Value) and IsNothing(Parameters!test_end.Value), "", 
+		Iif(IsNothing(Parameters!test_end.Value), " from " &amp; Parameters!test_start.Value,
+			Iif(IsNothing(Parameters!test_start.Value), " until " &amp; Parameters!test_end.Value,
+				" between " &amp; Parameters!test_start.Value &amp; " and " &amp; Parameters!test_end.Value
+		)))</Value>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <Height>1.13453cm</Height>
+        <Width>14.53791cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <Height>1.22824in</Height>
+    <Style />
+  </Body>
+  <Width>5.72359in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="Delivery">
+      <DataSourceReference>MetricaDeliveryLive</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>74ec2af4-ac1f-4af5-b167-285d59571304</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="Product">
+      <Query>
+        <DataSourceName>Delivery</DataSourceName>
+        <CommandText>SELECT  pr.prd_id,
+    pr.prd_short_description
+FROM  products pr
+WHERE EXISTS (  SELECT  NULL 
+        FROM  tests te 
+        WHERE pr.prd_id = te.prd_id
+            AND
+            te.tty_id = 'Adaptive'
+      )
+;</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="prd_id">
+          <DataField>prd_id</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="prd_short_description">
+          <DataField>prd_short_description</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Test">
+      <Query>
+        <DataSourceName>Delivery</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@prd_id">
+            <Value>=Parameters!prd_id.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT	te.tst_id,
+	te.tst_title
+FROM	tests te
+WHERE	te.prd_id IN (@prd_id)
+;
+	</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="tst_id">
+          <DataField>tst_id</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="tst_title">
+          <DataField>tst_title</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Test_Profile">
+      <Query>
+        <DataSourceName>Delivery</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@tst_id">
+            <Value>=Parameters!tst_id.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@test_start">
+            <Value>=Parameters!test_start.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@skill">
+            <Value>=Parameters!skill.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@test_end">
+            <Value>=Parameters!test_end.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>WITH l2_tests AS (
+  SELECT DISTINCT ti.tin_id,
+      tr.tir_section,
+      tr.itm_id
+  FROM  test_instances ti
+  INNER JOIN  test_instance_responses tr
+    ON  ti.tin_id = tr.tin_id
+  WHERE ti.tst_id IN (@tst_id)
+      AND
+      ti.tin_is_fully_marked = 1
+      AND
+      tr.tir_is_calibrated = 1
+    AND
+    (ti.tin_when_submitted &gt;= @test_start OR @test_start IS NULL)
+    AND
+    (ti.tin_when_submitted &lt;= DATEADD(d, 1, @test_end) OR @test_end IS NULL)
+-- The below is so as to limit the number of rows, remove for PRD -- 
+--      AND
+--      ti.tin_when_submitted &gt;= '20181101'
+),
+agg_dict AS (
+  SELECT	'Listening' AS skill, 'Listening_grade' AS agg_id
+  UNION ALL
+  SELECT	'Reading', 'Reading_grade'
+),
+agg_id_set AS (
+  SELECT	*
+  FROM	agg_dict
+  WHERE	skill IN (@skill)
+),
+l2_aggs AS (
+  SELECT  l2.tin_id,
+      ag.agg_value AS cefr_level
+  FROM  ( SELECT DISTINCT tin_id 
+        FROM  l2_tests) l2
+  INNER JOIN  aggregations ag
+    ON  l2.tin_id = ag.tin_id
+            AND
+            ag.agg_id IN (SELECT agg_id FROM agg_id_set)
+),
+details AS (
+  SELECT  l1.tin_id,
+      l1.itm_id,
+      it.itm_interaction_count,
+      ia.att_id,
+      ia.iat_value,
+      l3.cefr_level,
+      CASE  l3.cefr_level 
+        WHEN  'Not Reported'  THEN 0
+        WHEN  'Below A1'    THEN 1
+        WHEN  'A1'      THEN 2
+        WHEN  'A2'      THEN 3
+        WHEN  'B1'      THEN 4
+        WHEN  'B2'      THEN 5
+        WHEN  'C1 or above' THEN 6
+      END AS cefr_order
+  FROM  l2_tests l1
+  INNER JOIN  items it
+    ON  l1.itm_id = it.itm_id
+  INNER JOIN  item_attributes ia
+    ON  l1.itm_id = ia.itm_id
+      AND
+      it.itm_current_version = ia.itv_version
+      AND
+      ia.att_id IN ('Difficulty', 'Task Type', 'Component')
+  INNER JOIN  l2_aggs l3
+    ON  l1.tin_id = l3.tin_id
+),
+pivots AS (
+  SELECT  d1.tin_id,
+      d1.itm_id,
+      d1.itm_interaction_count,
+      d1.cefr_level,
+      d1.cefr_order,
+      MAX(CASE WHEN d1.att_id = 'Difficulty'  THEN d1.iat_value END) AS difficulty,
+      MIN(CASE WHEN d1.att_id = 'Task Type' THEN d1.iat_value END) AS task_type,
+      MAX(CASE WHEN d1.att_id = 'Component' THEN d1.iat_value END) AS component
+  FROM  details d1
+  GROUP BY  d1.tin_id,
+        d1.itm_id,
+        d1.itm_interaction_count,
+        d1.cefr_level,
+        d1.cefr_order
+),
+means AS (
+  SELECT  cefr_level,
+      cefr_order,
+      task_type,
+      AVG(CAST(difficulty AS float)) AS mean_diff,
+      CAST(SUM(itm_interaction_count) AS float) / CAST(COUNT(DISTINCT tin_id) AS float) AS mean_num_int
+  FROM  pivots
+  WHERE component IN (@skill)
+  GROUP BY  cefr_level,
+        cefr_order,
+        task_type
+)
+select * from means
+;</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="cefr_level">
+          <DataField>cefr_level</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="cefr_order">
+          <DataField>cefr_order</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="task_type">
+          <DataField>task_type</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="mean_diff">
+          <DataField>mean_diff</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="mean_num_int">
+          <DataField>mean_num_int</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="prd_id">
+      <DataType>String</DataType>
+      <Prompt>Product</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Product</DataSetName>
+          <ValueField>prd_id</ValueField>
+          <LabelField>prd_short_description</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="tst_id">
+      <DataType>String</DataType>
+      <Prompt>Test ID</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Test</DataSetName>
+          <ValueField>tst_id</ValueField>
+          <LabelField>tst_id</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="test_start">
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>Start Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="test_end">
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>End Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="skill">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Listening</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Skill</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>Listening</Value>
+            <Label>Listening</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Reading</Value>
+            <Label>Reading</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>7e21551b-460c-46b2-af81-5e28b8155d5c</rd:ReportID>
+</Report>

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "azureeventgrid_1_Connection_Name": {
+      "value": "UpdateSubmitQuestionStatusInTableStorage"
+    },
+    "azureeventgrid_1_Connection_DisplayName": {
+      "value": "UpdateSubmitQuestionStatusInTableStorage"
+    },
+    "azureeventgrid_1_token:clientId": {
+      "value": "46a4ad0b-bc1c-4df6-bfb4-06a9e0cec7af"
+    },
+    "azureeventgrid_1_token:clientSecret": {
+      "value": "MkcIcmE1cftluYW787T19gRLbSDUjVA6ZCUaIKcXkLM="
+    },
+    "azureeventgrid_1_token:TenantId": {
+      "value": "2f73e501-3af3-4b71-a8ac-04ea8198a9dc"
+    },
+    "azureeventgrid_1_token:grantType": {
+      "value": "client_credentials"
+    },
+    "azuretables_1_Connection_Name": {
+      "value": "UpdateSubmitQuestionStatusInTableStorageTable"
+    },
+    "azuretables_1_Connection_DisplayName": {
+      "value": "UpdateSubmitQuestionStatusInTableStorageTable"
+    },
+    "azuretables_1_storageaccount": {
+      "value": "ametfile001"
+    },
+    "azuretables_1_sharedkey": {
+      "value": "yOc5IANKraxUihbddJT7Ft/JrqyOODSTfG24UpLqXxmMaOUMjCoVSPgAxDbpQsWC8nHPdM1fP77On1kDIdRWEw=="
+    },
+    "triggerTopic": {
+      "value": "/subscriptions/2c903d74-e077-4eb2-8c79-c2f78c078c90/resourceGroups/RsgSelCEMetrica/providers/Microsoft.EventGrid/topics/EliTSubmitQuestionsel"
+    },
+    "LogicAppLocation": {
+      "value": "northeurope"
+    }
+  }
+}

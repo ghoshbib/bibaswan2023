@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Textbox Name="Textbox1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="Group Results Summary for product " &amp; Parameters!Product.Value &amp; " as at " &amp; Format(Now, "dd/MM/yyyy HH:mm") &amp; IIF(Parameters!StartDate.Value &lt;&gt; Nothing Or Parameters!EndDate.Value &lt;&gt; Nothing, vbcrlf, "") &amp; 
+IIF(Parameters!StartDate.Value &lt;&gt; Nothing, "From " &amp; Format(Parameters!StartDate.Value, "dd/MM/yyyy") &amp; " ", "") &amp; 
+IIF(Parameters!EndDate.Value &lt;&gt; Nothing, "To " &amp; Format(Parameters!EndDate.Value, "dd/MM/yyyy"), "") &amp; 
+IIF(Parameters!StartDate.Value &lt;&gt; Nothing Or Parameters!EndDate.Value &lt;&gt; Nothing, vbcrlf, "")</Value>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Height>1.78745cm</Height>
+        <Width>34.11583cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Tablix Name="Tablix1">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>5.91312cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>9.93479cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.5cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.5cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.5cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>2.5cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Login</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox2</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox4">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Candidate Name</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox4</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox6">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Listening</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Raw Score</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox6</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox12">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>GVR</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Raw Score</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox12</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox14">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Total Score</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox14</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox16">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>CEFR Level</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox16</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="LLOGIN">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=IIF(Fields!LLOGIN.Value &lt;&gt; Nothing, Fields!LLOGIN.Value, Fields!GLOGIN.Value)</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>LLOGIN</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="LCAND">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=IIF(Fields!LCAND.Value &lt;&gt; Nothing, Fields!LCAND.Value, Fields!GCAND.Value)</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>LCAND</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="LSCORE">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!LSCORE.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>LSCORE</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="GSCORE">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!GSCORE.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>GSCORE</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="TOTAL_SCORE">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!TOTAL_SCORE.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>TOTAL_SCORE</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="TOTAL_GRADE">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!TOTAL_GRADE.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>TOTAL_GRADE</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <TablixHeader>
+                <Size>8.26792cm</Size>
+                <CellContents>
+                  <Textbox Name="Textbox10">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>Session Name</Value>
+                            <Style>
+                              <FontWeight>Bold</FontWeight>
+                            </Style>
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Textbox10</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+              <TablixMembers>
+                <TablixMember />
+              </TablixMembers>
+              <KeepWithGroup>After</KeepWithGroup>
+            </TablixMember>
+            <TablixMember>
+              <Group Name="Session">
+                <GroupExpressions>
+                  <GroupExpression>=IIF(Fields!LSES.Value &lt;&gt; Nothing, Fields!LSES.Value, Fields!GSES.Value)</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=IIF(Fields!LSES.Value &lt;&gt; Nothing, Fields!LSES.Value, Fields!GSES.Value)</Value>
+                </SortExpression>
+              </SortExpressions>
+              <TablixHeader>
+                <Size>8.26792cm</Size>
+                <CellContents>
+                  <Textbox Name="Group1">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>=IIF(Fields!LSES.Value &lt;&gt; Nothing, Fields!LSES.Value, Fields!GSES.Value)</Value>
+                            <Style />
+                          </TextRun>
+                        </TextRuns>
+                        <Style />
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Group1</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="Details" />
+                </TablixMember>
+              </TablixMembers>
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <NoRowsMessage>No results found</NoRowsMessage>
+        <DataSetName>ResponsesScores</DataSetName>
+        <Top>1.78745cm</Top>
+        <Height>1.2cm</Height>
+        <Width>34.11583cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <FontSize>12pt</FontSize>
+          <Color>Red</Color>
+          <PaddingLeft>2pt</PaddingLeft>
+        </Style>
+      </Tablix>
+    </ReportItems>
+    <Height>1.17616in</Height>
+    <Style />
+  </Body>
+  <Width>13.43143in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="MetricaDeliveryLive">
+      <DataSourceReference>CaMLA_Live</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>4c4e4187-132e-43f0-895d-1fefaba313e0</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="ResponsesScores">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Institution">
+            <Value>=Parameters!Institution.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Product">
+            <Value>=Parameters!Product.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@SessionGroup">
+            <Value>=Parameters!SessionGroup.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Session">
+            <Value>=Parameters!Session.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@StartDate">
+            <Value>=Parameters!StartDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Candidate">
+            <Value>=Parameters!Candidate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@EndDate">
+            <Value>=Parameters!EndDate.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>WITH LISTENING AS
+(
+SELECT USR_LOGIN, USR_FIRSTNAME, USR_SURNAME, (LTRIM(RTRIM(USR_FIRSTNAME)) + ' ' + LTRIM(RTRIM(USR_SURNAME))) AS CAND_NAME, U.USR_ID, USR_EMAIL_ADDRESS, TIN.TIN_ID, TIN_WHEN_STARTED, TIN_WHEN_SUBMITTED, TST_ID, SES_REFERENCE, SUM(TIR_SCORE) AS LSCORE FROM TEST_INSTANCE_RESPONSES TIR WITH (NOLOCK)
+INNER JOIN TEST_INSTANCES TIN WITH (NOLOCK)
+ON TIN.TIN_ID = TIR.TIN_ID
+INNER JOIN USERS U WITH (NOLOCK)
+ON U.USR_ID = TIN_USER_ID
+INNER JOIN ASSIGNMENTS A WITH (NOLOCK)
+ON ASN_ID = TIN_ASSIGNMENT_ID
+INNER JOIN SESSIONS S WITH (NOLOCK)
+ON S.SES_ID = A.SES_ID
+INNER JOIN INSTITUTIONS I
+ON I.INS_ID = S.INS_ID
+INNER JOIN SESSION_GROUPS SG
+ON SG.SGP_ID = A.SGP_ID
+WHERE (INS_GROUP = @Institution OR @Institution = 'CaMLA')
+AND TIN_WHEN_SUBMITTED &gt;= '2015-09-01'
+AND ITM_ID &lt;&gt; ''
+AND SG.PRD_ID IN (@Product)
+AND (SGP_NAME = @SessionGroup OR @SessionGroup = '')
+AND (SES_REFERENCE = @Session OR @Session = '')
+AND TIR_SECTION LIKE '%Listening%'
+AND ((LTRIM(RTRIM(USR_FIRSTNAME)) + ' ' + LTRIM(RTRIM(USR_SURNAME))) LIKE @Candidate OR @Candidate = '')
+AND ((TIN_WHEN_SUBMITTED &gt;= @StartDate OR @StartDate IS NULL)
+AND (DATEADD(Day, -1, TIN_WHEN_SUBMITTED) &lt;= @EndDate OR @EndDate IS NULL))
+GROUP BY USR_LOGIN, USR_FIRSTNAME, USR_SURNAME, (LTRIM(RTRIM(USR_FIRSTNAME)) + ' ' + LTRIM(RTRIM(USR_SURNAME))), U.USR_ID, USR_EMAIL_ADDRESS, TIN.TIN_ID, TIN_WHEN_STARTED, TIN_WHEN_SUBMITTED, TST_ID, SES_REFERENCE
+),
+GVR AS
+(
+SELECT USR_LOGIN, USR_FIRSTNAME, USR_SURNAME, (LTRIM(RTRIM(USR_FIRSTNAME)) + ' ' + LTRIM(RTRIM(USR_SURNAME))) AS CAND_NAME, U.USR_ID, USR_EMAIL_ADDRESS, TIN.TIN_ID, TIN_WHEN_STARTED, TIN_WHEN_SUBMITTED, TST_ID, SES_REFERENCE, SUM(TIR_SCORE) AS GSCORE FROM TEST_INSTANCE_RESPONSES TIR WITH (NOLOCK)
+INNER JOIN TEST_INSTANCES TIN WITH (NOLOCK)
+ON TIN.TIN_ID = TIR.TIN_ID
+INNER JOIN USERS U WITH (NOLOCK)
+ON U.USR_ID = TIN_USER_ID
+INNER JOIN ASSIGNMENTS A WITH (NOLOCK)
+ON ASN_ID = TIN_ASSIGNMENT_ID
+INNER JOIN SESSIONS S WITH (NOLOCK)
+ON S.SES_ID = A.SES_ID
+INNER JOIN INSTITUTIONS I
+ON I.INS_ID = S.INS_ID
+INNER JOIN SESSION_GROUPS SG
+ON SG.SGP_ID = A.SGP_ID
+WHERE (INS_GROUP = @Institution OR @Institution = 'CaMLA')
+AND TIN_WHEN_SUBMITTED &gt;= '2015-09-01'
+AND ITM_ID &lt;&gt; ''
+AND SG.PRD_ID IN (@Product)
+AND (SGP_NAME = @SessionGroup OR @SessionGroup = '')
+AND (SES_REFERENCE = @Session OR @Session = '')
+AND (TIR_SECTION LIKE '%GVR%' OR TIR_SECTION LIKE '%GCVR%' OR TIR_SECTION LIKE '%GVCR%')
+AND ((LTRIM(RTRIM(USR_FIRSTNAME)) + ' ' + LTRIM(RTRIM(USR_SURNAME))) LIKE @Candidate OR @Candidate = '')
+AND ((TIN_WHEN_SUBMITTED &gt;= @StartDate OR @StartDate IS NULL)
+AND (DATEADD(Day, -1, TIN_WHEN_SUBMITTED) &lt;= @EndDate OR @EndDate IS NULL))
+GROUP BY USR_LOGIN, USR_FIRSTNAME, USR_SURNAME, (LTRIM(RTRIM(USR_FIRSTNAME)) + ' ' + LTRIM(RTRIM(USR_SURNAME))), U.USR_ID, USR_EMAIL_ADDRESS, TIN.TIN_ID, TIN_WHEN_STARTED, TIN_WHEN_SUBMITTED, TST_ID, SES_REFERENCE
+),
+TOTAL AS
+(
+SELECT USR_LOGIN, USR_FIRSTNAME, USR_SURNAME, (LTRIM(RTRIM(USR_FIRSTNAME)) + ' ' + LTRIM(RTRIM(USR_SURNAME))) AS CAND_NAME, U.USR_ID, USR_EMAIL_ADDRESS, TIN.TIN_ID, TIN_WHEN_STARTED, TIN_WHEN_SUBMITTED, TST_ID, SES_REFERENCE, AGG1.AGG_VALUE AS TOTAL_SCORE, AGG2.AGG_VALUE AS TOTAL_GRADE FROM TEST_INSTANCES TIN WITH (NOLOCK)
+INNER JOIN AGGREGATIONS AGG1
+ON (AGG1.TIN_ID = TIN.TIN_ID AND AGG1.AGG_ID = 'Total_Score')
+INNER JOIN AGGREGATIONS AGG2
+ON (AGG2.TIN_ID = TIN.TIN_ID AND AGG2.AGG_ID = 'Total_Grade')
+INNER JOIN USERS U WITH (NOLOCK)
+ON U.USR_ID = TIN_USER_ID
+INNER JOIN ASSIGNMENTS A WITH (NOLOCK)
+ON ASN_ID = TIN_ASSIGNMENT_ID
+INNER JOIN SESSIONS S WITH (NOLOCK)
+ON S.SES_ID = A.SES_ID
+INNER JOIN INSTITUTIONS I
+ON I.INS_ID = S.INS_ID
+INNER JOIN SESSION_GROUPS SG
+ON SG.SGP_ID = A.SGP_ID
+WHERE (INS_GROUP = @Institution OR @Institution = 'CaMLA')
+AND TIN_WHEN_SUBMITTED &gt;= '2015-09-01'
+AND SG.PRD_ID IN (@Product)
+AND (SGP_NAME = @SessionGroup OR @SessionGroup = '')
+AND (SES_REFERENCE = @Session OR @Session = '')
+AND ((LTRIM(RTRIM(USR_FIRSTNAME)) + ' ' + LTRIM(RTRIM(USR_SURNAME))) LIKE @Candidate OR @Candidate = '')
+AND ((TIN_WHEN_SUBMITTED &gt;= @StartDate OR @StartDate IS NULL)
+AND (DATEADD(Day, -1, TIN_WHEN_SUBMITTED) &lt;= @EndDate OR @EndDate IS NULL))
+)
+SELECT L.USR_LOGIN AS LLOGIN, L.USR_FIRSTNAME AS LFIRST, L.USR_SURNAME AS LSURN, L.CAND_NAME AS LCAND, L.USR_ID AS LUSR, L.USR_EMAIL_ADDRESS AS LEMAIL, L.TIN_ID AS LTIN, L.TIN_WHEN_STARTED AS LSTART, L.TIN_WHEN_SUBMITTED AS LSUB, L.TST_ID AS LTST, L.SES_REFERENCE AS LSES, G.USR_LOGIN AS GLOGIN, G.USR_FIRSTNAME AS GFIRST, G.USR_SURNAME AS GSURN, G.CAND_NAME AS GCAND, G.USR_ID AS GUSR, G.USR_EMAIL_ADDRESS AS GEMAIL, G.TIN_ID AS GTIN, G.TIN_WHEN_STARTED AS GSTART, G.TIN_WHEN_SUBMITTED AS GSUB, G.TST_ID AS GTST, G.SES_REFERENCE AS GSES, LSCORE, GSCORE, TOTAL_SCORE, TOTAL_GRADE FROM LISTENING L
+FULL JOIN GVR G
+ON G.TIN_ID = L.TIN_ID
+FULL JOIN TOTAL T
+ON T.TIN_ID = L.TIN_ID</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="LLOGIN">
+          <DataField>LLOGIN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LFIRST">
+          <DataField>LFIRST</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LSURN">
+          <DataField>LSURN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LCAND">
+          <DataField>LCAND</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LUSR">
+          <DataField>LUSR</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="LEMAIL">
+          <DataField>LEMAIL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LTIN">
+          <DataField>LTIN</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="LSTART">
+          <DataField>LSTART</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="LSUB">
+          <DataField>LSUB</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="LTST">
+          <DataField>LTST</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LSES">
+          <DataField>LSES</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GLOGIN">
+          <DataField>GLOGIN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GFIRST">
+          <DataField>GFIRST</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GSURN">
+          <DataField>GSURN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GCAND">
+          <DataField>GCAND</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GUSR">
+          <DataField>GUSR</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="GEMAIL">
+          <DataField>GEMAIL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GTIN">
+          <DataField>GTIN</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="GSTART">
+          <DataField>GSTART</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="GSUB">
+          <DataField>GSUB</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="GTST">
+          <DataField>GTST</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GSES">
+          <DataField>GSES</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LSCORE">
+          <DataField>LSCORE</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="GSCORE">
+          <DataField>GSCORE</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_SCORE">
+          <DataField>TOTAL_SCORE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TOTAL_GRADE">
+          <DataField>TOTAL_GRADE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Products">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Institution">
+            <Value>=Parameters!Institution.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT DISTINCT P.PRD_ID, PRD_SHORT_DESCRIPTION, PROD = 
+ CASE COALESCE(PRD_SHORT_DESCRIPTION, '')
+  WHEN '' THEN P.PRD_ID
+  WHEN 'BMAT Section 2: Assumed Subject Knowledge Guide' THEN P.PRD_ID
+  WHEN P.PRD_ID THEN P.PRD_ID
+  ELSE PRD_SHORT_DESCRIPTION
+ END
+FROM PRODUCTS P
+INNER JOIN ELEGIBILITY E
+ON E.PRD_ID = P.PRD_ID
+WHERE (E.INS_ID = @Institution OR @Institution = 'CaMLA')
+order by P.PRD_ID</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="PRD_ID">
+          <DataField>PRD_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PRD_SHORT_DESCRIPTION">
+          <DataField>PRD_SHORT_DESCRIPTION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PROD">
+          <DataField>PROD</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="SessionGroups">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Product">
+            <Value>=Parameters!Product.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Institution">
+            <Value>=Parameters!Institution.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT DISTINCT SGP_NAME FROM SESSION_GROUPS SG
+INNER JOIN SESSIONS S
+ON S.SGP_ID = SG.SGP_ID
+INNER JOIN INSTITUTIONS I
+ON I.INS_ID = S.INS_ID
+WHERE PRD_ID IN (@Product)
+AND (I.INS_GROUP = @Institution OR @Institution = 'CaMLA')
+UNION ALL
+SELECT ''
+ORDER BY SGP_NAME</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="SGP_NAME">
+          <DataField>SGP_NAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Sessions">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@SessionGroup">
+            <Value>=Parameters!SessionGroup.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT DISTINCT SES_REFERENCE FROM SESSIONS S
+INNER JOIN SESSION_GROUPS SG
+ON SG.SGP_ID = S.SGP_ID
+WHERE SGP_NAME = @SessionGroup
+UNION ALL
+SELECT ''
+ORDER BY SES_REFERENCE</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="SES_REFERENCE">
+          <DataField>SES_REFERENCE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="StartDate">
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>Start Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EndDate">
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>End Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Institution">
+      <DataType>String</DataType>
+      <Prompt>Institution</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="Product">
+      <DataType>String</DataType>
+      <Prompt>Product</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Products</DataSetName>
+          <ValueField>PRD_ID</ValueField>
+          <LabelField>PROD</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="SessionGroup">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>SessionGroups</DataSetName>
+          <ValueField>SGP_NAME</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Session Group</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>SessionGroups</DataSetName>
+          <ValueField>SGP_NAME</ValueField>
+          <LabelField>SGP_NAME</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Session">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Sessions</DataSetName>
+          <ValueField>SES_REFERENCE</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Session</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Sessions</DataSetName>
+          <ValueField>SES_REFERENCE</ValueField>
+          <LabelField>SES_REFERENCE</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Candidate">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Candidate</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>6f4e088c-6636-41d5-a517-03bb2ea64feb</rd:ReportID>
+</Report>

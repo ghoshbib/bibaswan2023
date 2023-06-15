@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "azureeventgrid_1_Connection_Name": {
+      "value": "SubmitSpeech"
+    },
+    "azureeventgrid_1_Connection_DisplayName": {
+      "value": "SubmitSpeech"
+    },
+    "azureeventgrid_1_token:clientId": {
+      "value": "46a4ad0b-bc1c-4df6-bfb4-06a9e0cec7af"
+    },
+    "azureeventgrid_1_token:clientSecret": {
+      "value": "MkcIcmE1cftluYW787T19gRLbSDUjVA6ZCUaIKcXkLM="
+    },
+    "azureeventgrid_1_token:TenantId": {
+      "value": "2f73e501-3af3-4b71-a8ac-04ea8198a9dc"
+    },
+    "azureeventgrid_1_token:grantType": {
+      "value": "client_credentials"
+    },
+    "LogicAppLocation": {
+      "value": "northeurope"
+    },
+    "azureeventgridpublish_1_Connection_Name": {
+      "value": "EliTMessageHandlerTopic"
+    },
+    "azureeventgridpublish_1_Connection_DisplayName": {
+
+      "value": "EliTMessageHandlerTopic"
+    },
+    "azureeventgridpublish_1_endpoint": {
+      "value": "https://elitmessagehandlertopicuat.northeurope-1.eventgrid.azure.net/api/events"
+    },
+    "azureeventgridpublish_1_api_key": {
+      "value": "bR7XTxDU+QXvL0kPhMPCiDUVDhW4J/eCy/1d13YG0HY="
+    },
+    "triggerTopic": {
+      "value": "/subscriptions/2c903d74-e077-4eb2-8c79-c2f78c078c90/resourceGroups/RsgUatCEMetrica/providers/Microsoft.EventGrid/topics/EliTSubmitSpeechuat"
+    },
+    "sasUrl": {
+      "value": "/subscriptions/2c903d74-e077-4eb2-8c79-c2f78c078c90/resourceGroups/RsgUatCEMetrica/providers/Microsoft.Web/sites/EliTSpeakingFunctionAppUAT/functions/HttpTriggerForSASKey"
+    },
+    "appinsightsUrl": {
+      "value": "/subscriptions/2c903d74-e077-4eb2-8c79-c2f78c078c90/resourceGroups/RsgUatCEMetrica/providers/Microsoft.Web/sites/EliTSpeakingFunctionAppUAT/functions/HttpTriggerLogToAppinsights"
+    },
+    "integrationTopicUrl": {
+      "value": "https://caelitspeechanswereguat.northeurope-1.eventgrid.azure.net/api/events"
+    },
+    "integrationsaskey": {
+      "reference": {
+        "keyVault": { "id": "/subscriptions/2c903d74-e077-4eb2-8c79-c2f78c078c90/resourceGroups/RsgDevCEMetrica/providers/Microsoft.KeyVault/vaults/MetricaKeyVault" },
+        "secretName": "IntegrationSpeechAnswerTopicAccessKeyUat",
+        "secretVersion": "2e957131bfd646dc8e5b7d3b405052a5"
+      }
+    }
+  }
+}

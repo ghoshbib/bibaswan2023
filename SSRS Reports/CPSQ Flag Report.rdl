@@ -1,0 +1,1003 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="MetricaDeliveryLive">
+      <DataSourceReference>/Data Sources/MetricaDeliveryLive</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>f2c0d5de-9513-434c-94fc-0e139caf0102</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="CPSQScores">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Institution">
+            <Value>=Parameters!Institution.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Session">
+            <Value>=Parameters!Session.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@StartDate">
+            <Value>=Parameters!StartDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@EndDate">
+            <Value>=Parameters!EndDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Threshold">
+            <Value>=Parameters!Threshold.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>WITH TotalFlags AS
+(
+SELECT AGG.TIN_ID, COUNT(*) AS FLAGCOUNT FROM AGGREGATIONS AGG WITH (NOLOCK)
+INNER JOIN TEST_INSTANCES TIN WITH (NOLOCK)
+ON TIN.TIN_ID = AGG.TIN_ID
+INNER JOIN ASSIGNMENTS A WITH (NOLOCK)
+ON A.ASN_ID = TIN_ASSIGNMENT_ID
+INNER JOIN USERS U WITH (NOLOCK)
+ON U.USR_ID = TIN_USER_ID
+INNER JOIN SESSIONS S WITH (NOLOCK)
+ON S.SES_ID = A.SES_ID
+INNER JOIN INSTITUTIONS I WITH (NOLOCK)
+ON I.INS_ID = A.INS_ID
+WHERE (A.INS_ID = @Institution OR @Institution = 'CambridgeEnglish')
+AND (AGG_ID LIKE 'competency%')
+AND (SES_REFERENCE IN (@Session))
+AND ((TIN_WHEN_APPROVED &gt;= @StartDate OR @StartDate IS NULL)
+AND (DATEADD(Day, -1, TIN_WHEN_APPROVED) &lt;= @EndDate OR @EndDate IS NULL))
+AND CONVERT(INT, AGG_VALUE) &lt;= @Threshold
+AND TIN.TIN_ID &lt;&gt; 464843
+GROUP BY AGG.TIN_ID
+),
+Scores AS
+(
+SELECT AGG.TIN_ID, INS_NAME, SES_REFERENCE, USR_LOGIN, IIF(ISNULL(ASN_SOR_FIRSTNAME, '') = '' , USR_FIRSTNAME, ASN_SOR_FIRSTNAME) AS USR_FIRSTNAME, 
+IIF(ISNULL(ASN_SOR_SURNAME, '') = '' , USR_SURNAME, ASN_SOR_SURNAME) AS USR_SURNAME, 
+TIN_WHEN_STARTED, TIN_WHEN_APPROVED, AGG_ID, AGG_VALUE FROM AGGREGATIONS AGG WITH (NOLOCK)
+INNER JOIN TEST_INSTANCES TIN WITH (NOLOCK)
+ON TIN.TIN_ID = AGG.TIN_ID
+INNER JOIN ASSIGNMENTS A WITH (NOLOCK)
+ON A.ASN_ID = TIN_ASSIGNMENT_ID
+INNER JOIN USERS U WITH (NOLOCK)
+ON U.USR_ID = TIN_USER_ID
+INNER JOIN SESSIONS S WITH (NOLOCK)
+ON S.SES_ID = A.SES_ID
+INNER JOIN INSTITUTIONS I WITH (NOLOCK)
+ON I.INS_ID = A.INS_ID
+WHERE (A.INS_ID = @Institution OR @Institution = 'CambridgeEnglish')
+AND (AGG_ID LIKE 'competency%')
+AND (SES_REFERENCE IN (@Session))
+AND ((TIN_WHEN_APPROVED &gt;= @StartDate OR @StartDate IS NULL)
+AND (DATEADD(Day, -1, TIN_WHEN_APPROVED) &lt;= @EndDate OR @EndDate IS NULL))
+AND TIN.TIN_ID &lt;&gt; 464843
+)
+SELECT S.*, FLAGCOUNT FROM Scores S
+LEFT JOIN TotalFlags T
+ON T.TIN_ID = S.TIN_ID</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="SES_REFERENCE">
+          <DataField>SES_REFERENCE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TIN_ID">
+          <DataField>TIN_ID</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="INS_NAME">
+          <DataField>INS_NAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USR_LOGIN">
+          <DataField>USR_LOGIN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USR_FIRSTNAME">
+          <DataField>USR_FIRSTNAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USR_SURNAME">
+          <DataField>USR_SURNAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TIN_WHEN_APPROVED">
+          <DataField>TIN_WHEN_APPROVED</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="TIN_WHEN_STARTED">
+          <DataField>TIN_WHEN_STARTED</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="AGG_ID">
+          <DataField>AGG_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AGG_VALUE">
+          <DataField>AGG_VALUE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FLAGCOUNT">
+          <DataField>FLAGCOUNT</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Sessions">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Institution">
+            <Value>=Parameters!Institution.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT DISTINCT SES_START_DATE, SES_REFERENCE FROM SESSIONS S
+INNER JOIN ASSIGNMENTS A
+ON A.SES_ID = S.SES_ID
+INNER JOIN TEST_INSTANCES TIN
+ON TIN_ASSIGNMENT_ID = ASN_ID
+INNER JOIN AGGREGATIONS AGG
+ON (AGG.TIN_ID = TIN.TIN_ID AND AGG_ID = 'competency_CP')
+WHERE (A.INS_ID = @Institution OR @Institution = 'CambridgeEnglish')
+AND (A.INS_ID = 'CityUni' OR SES_START_DATE &gt;= '2015-09-01')
+ORDER BY SES_START_DATE DESC</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="SES_REFERENCE">
+          <DataField>SES_REFERENCE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SES_START_DATE">
+          <DataField>SES_START_DATE</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Competencies">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <CommandText>SELECT NRM_ID, CMT_ID, RIGHT(CMT_NAME, LEN(CMT_NAME) - 1) AS CMT_DESC, LEFT(CMT_NAME, 1) AS CMT_ORDER FROM COMPETENCIES</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="NRM_ID">
+          <DataField>NRM_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CMT_ID">
+          <DataField>CMT_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CMT_DESC">
+          <DataField>CMT_DESC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CMT_ORDER">
+          <DataField>CMT_ORDER</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Tablix Name="Tablix1">
+            <TablixCorner>
+              <TablixCornerRows>
+                <TablixCornerRow>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox10">
+                        <CanGrow>true</CanGrow>
+                        <UserSort>
+                          <SortExpression>=Fields!SES_REFERENCE.Value</SortExpression>
+                          <SortExpressionScope>USR_LOGIN</SortExpressionScope>
+                          <SortTarget>CPSQScores</SortTarget>
+                        </UserSort>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Session Name</Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox10</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox4">
+                        <CanGrow>true</CanGrow>
+                        <UserSort>
+                          <SortExpression>=Fields!USR_LOGIN.Value</SortExpression>
+                          <SortExpressionScope>USR_LOGIN</SortExpressionScope>
+                          <SortTarget>CPSQScores</SortTarget>
+                        </UserSort>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Candidate Login</Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox4</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox22">
+                        <CanGrow>true</CanGrow>
+                        <UserSort>
+                          <SortExpression>=Fields!USR_FIRSTNAME.Value</SortExpression>
+                          <SortTarget>CPSQScores</SortTarget>
+                        </UserSort>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>First Name</Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox22</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox20">
+                        <CanGrow>true</CanGrow>
+                        <UserSort>
+                          <SortExpression>=Fields!USR_SURNAME.Value</SortExpression>
+                          <SortExpressionScope>USR_LOGIN</SortExpressionScope>
+                          <SortTarget>CPSQScores</SortTarget>
+                        </UserSort>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Surname</Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox20</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox18">
+                        <CanGrow>true</CanGrow>
+                        <UserSort>
+                          <SortExpression>=Fields!TIN_WHEN_APPROVED.Value</SortExpression>
+                          <SortExpressionScope>USR_LOGIN</SortExpressionScope>
+                          <SortTarget>CPSQScores</SortTarget>
+                        </UserSort>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Test Date / Time</Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox18</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                </TablixCornerRow>
+              </TablixCornerRows>
+            </TablixCorner>
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>3.34667cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.89688cm</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="AGG_VALUE">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!AGG_VALUE.Value</Value>
+                                  <Style>
+                                    <Color>Blue</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>AGG_VALUE</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="FLAGCOUNT">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!FLAGCOUNT.Value</Value>
+                                  <Style>
+                                    <Color>Red</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>FLAGCOUNT</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="AGG_ID">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!AGG_ID.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Lookup(Right(Fields!AGG_ID.Value, Len(Fields!AGG_ID.Value) - 11), Fields!CMT_ID.Value, Fields!CMT_ORDER.Value, "Competencies")</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixHeader>
+                    <Size>0.6cm</Size>
+                    <CellContents>
+                      <Textbox Name="AGG_ID">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>=Lookup(Right(Fields!AGG_ID.Value, Len(Fields!AGG_ID.Value) - 11), Fields!CMT_ID.Value, Fields!CMT_DESC.Value, "Competencies")</Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>Blue</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>AGG_ID</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>0.6cm</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox8">
+                        <CanGrow>true</CanGrow>
+                        <UserSort>
+                          <SortExpression>=Fields!FLAGCOUNT.Value</SortExpression>
+                          <SortExpressionScope>USR_LOGIN</SortExpressionScope>
+                          <SortTarget>CPSQScores</SortTarget>
+                        </UserSort>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Total Flags</Value>
+                                <Style>
+                                  <FontWeight>Bold</FontWeight>
+                                  <Color>Red</Color>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style>
+                              <TextAlign>Center</TextAlign>
+                            </Style>
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox8</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="USR_LOGIN">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!USR_LOGIN.Value</GroupExpression>
+                      <GroupExpression>=Fields!TIN_WHEN_APPROVED.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!SES_REFERENCE.Value</Value>
+                    </SortExpression>
+                    <SortExpression>
+                      <Value>=Fields!USR_LOGIN.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixHeader>
+                    <Size>5.78083cm</Size>
+                    <CellContents>
+                      <Textbox Name="SES_REFERENCE">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>=Fields!SES_REFERENCE.Value</Value>
+                                <Style />
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>SES_REFERENCE</rd:DefaultName>
+                        <ActionInfo>
+                          <Actions>
+                            <Action>
+                              <Drillthrough>
+                                <ReportName>=IIF(Fields!AGG_ID.Value = "competency_CC", "CPSQ Healthcare Applicant Report Direct", "CPSQ HE Applicant Report Direct")</ReportName>
+                                <Parameters>
+                                  <Parameter Name="Institution">
+                                    <Value>=Parameters!Institution.Value</Value>
+                                  </Parameter>
+                                  <Parameter Name="Session">
+                                    <Value>=Fields!SES_REFERENCE.Value</Value>
+                                  </Parameter>
+                                  <Parameter Name="UserLogin">
+                                    <Value>=Fields!USR_LOGIN.Value</Value>
+                                  </Parameter>
+                                </Parameters>
+                              </Drillthrough>
+                            </Action>
+                          </Actions>
+                        </ActionInfo>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember>
+                      <TablixHeader>
+                        <Size>6.81271cm</Size>
+                        <CellContents>
+                          <Textbox Name="USR_LOGIN">
+                            <CanGrow>true</CanGrow>
+                            <KeepTogether>true</KeepTogether>
+                            <Paragraphs>
+                              <Paragraph>
+                                <TextRuns>
+                                  <TextRun>
+                                    <Value>=Fields!USR_LOGIN.Value</Value>
+                                    <Style />
+                                  </TextRun>
+                                </TextRuns>
+                                <Style />
+                              </Paragraph>
+                            </Paragraphs>
+                            <rd:DefaultName>USR_LOGIN</rd:DefaultName>
+                            <ActionInfo>
+                              <Actions>
+                                <Action>
+                                  <Drillthrough>
+                                    <ReportName>=IIF(Fields!AGG_ID.Value = "competency_CC", "CPSQ Healthcare Applicant Report Direct", IIF(Parameters!Institution.Value = "Takatuf", "CPSQ HE Applicant Report Direct NoScore", "CPSQ HE Applicant Report Direct"))</ReportName>
+                                    <Parameters>
+                                      <Parameter Name="Institution">
+                                        <Value>=Parameters!Institution.Value</Value>
+                                      </Parameter>
+                                      <Parameter Name="Session">
+                                        <Value>=Fields!SES_REFERENCE.Value</Value>
+                                      </Parameter>
+                                      <Parameter Name="UserLogin">
+                                        <Value>=Fields!USR_LOGIN.Value</Value>
+                                      </Parameter>
+                                    </Parameters>
+                                  </Drillthrough>
+                                </Action>
+                              </Actions>
+                            </ActionInfo>
+                            <Style>
+                              <Border>
+                                <Color>LightGrey</Color>
+                                <Style>Solid</Style>
+                              </Border>
+                              <PaddingLeft>2pt</PaddingLeft>
+                              <PaddingRight>2pt</PaddingRight>
+                              <PaddingTop>2pt</PaddingTop>
+                              <PaddingBottom>2pt</PaddingBottom>
+                            </Style>
+                          </Textbox>
+                        </CellContents>
+                      </TablixHeader>
+                      <TablixMembers>
+                        <TablixMember>
+                          <TablixHeader>
+                            <Size>4.51083cm</Size>
+                            <CellContents>
+                              <Textbox Name="USR_FIRSTNAME">
+                                <CanGrow>true</CanGrow>
+                                <KeepTogether>true</KeepTogether>
+                                <Paragraphs>
+                                  <Paragraph>
+                                    <TextRuns>
+                                      <TextRun>
+                                        <Value>=Fields!USR_FIRSTNAME.Value</Value>
+                                        <Style />
+                                      </TextRun>
+                                    </TextRuns>
+                                    <Style />
+                                  </Paragraph>
+                                </Paragraphs>
+                                <rd:DefaultName>USR_FIRSTNAME</rd:DefaultName>
+                                <ActionInfo>
+                                  <Actions>
+                                    <Action>
+                                      <Drillthrough>
+                                        <ReportName>=IIF(Fields!AGG_ID.Value = "competency_CC", "CPSQ Healthcare Applicant Report Direct", IIF(Parameters!Institution.Value = "Takatuf", "CPSQ HE Applicant Report Direct NoScore", "CPSQ HE Applicant Report Direct"))</ReportName>
+                                        <Parameters>
+                                          <Parameter Name="Institution">
+                                            <Value>=Parameters!Institution.Value</Value>
+                                          </Parameter>
+                                          <Parameter Name="Session">
+                                            <Value>=Fields!SES_REFERENCE.Value</Value>
+                                          </Parameter>
+                                          <Parameter Name="UserLogin">
+                                            <Value>=Fields!USR_LOGIN.Value</Value>
+                                          </Parameter>
+                                        </Parameters>
+                                      </Drillthrough>
+                                    </Action>
+                                  </Actions>
+                                </ActionInfo>
+                                <Style>
+                                  <Border>
+                                    <Color>LightGrey</Color>
+                                    <Style>Solid</Style>
+                                  </Border>
+                                  <PaddingLeft>2pt</PaddingLeft>
+                                  <PaddingRight>2pt</PaddingRight>
+                                  <PaddingTop>2pt</PaddingTop>
+                                  <PaddingBottom>2pt</PaddingBottom>
+                                </Style>
+                              </Textbox>
+                            </CellContents>
+                          </TablixHeader>
+                          <TablixMembers>
+                            <TablixMember>
+                              <TablixHeader>
+                                <Size>8.42667cm</Size>
+                                <CellContents>
+                                  <Textbox Name="USR_SURNAME">
+                                    <CanGrow>true</CanGrow>
+                                    <KeepTogether>true</KeepTogether>
+                                    <Paragraphs>
+                                      <Paragraph>
+                                        <TextRuns>
+                                          <TextRun>
+                                            <Value>=Fields!USR_SURNAME.Value</Value>
+                                            <Style />
+                                          </TextRun>
+                                        </TextRuns>
+                                        <Style />
+                                      </Paragraph>
+                                    </Paragraphs>
+                                    <rd:DefaultName>USR_SURNAME</rd:DefaultName>
+                                    <ActionInfo>
+                                      <Actions>
+                                        <Action>
+                                          <Drillthrough>
+                                            <ReportName>=IIF(Fields!AGG_ID.Value = "competency_CC", "CPSQ Healthcare Applicant Report Direct", IIF(Parameters!Institution.Value = "Takatuf", "CPSQ HE Applicant Report Direct NoScore", "CPSQ HE Applicant Report Direct"))</ReportName>
+                                            <Parameters>
+                                              <Parameter Name="Institution">
+                                                <Value>=Parameters!Institution.Value</Value>
+                                              </Parameter>
+                                              <Parameter Name="Session">
+                                                <Value>=Fields!SES_REFERENCE.Value</Value>
+                                              </Parameter>
+                                              <Parameter Name="UserLogin">
+                                                <Value>=Fields!USR_LOGIN.Value</Value>
+                                              </Parameter>
+                                            </Parameters>
+                                          </Drillthrough>
+                                        </Action>
+                                      </Actions>
+                                    </ActionInfo>
+                                    <Style>
+                                      <Border>
+                                        <Color>LightGrey</Color>
+                                        <Style>Solid</Style>
+                                      </Border>
+                                      <PaddingLeft>2pt</PaddingLeft>
+                                      <PaddingRight>2pt</PaddingRight>
+                                      <PaddingTop>2pt</PaddingTop>
+                                      <PaddingBottom>2pt</PaddingBottom>
+                                    </Style>
+                                  </Textbox>
+                                </CellContents>
+                              </TablixHeader>
+                              <TablixMembers>
+                                <TablixMember>
+                                  <TablixHeader>
+                                    <Size>4.00812cm</Size>
+                                    <CellContents>
+                                      <Textbox Name="TIN_WHEN_APPROVED">
+                                        <CanGrow>true</CanGrow>
+                                        <KeepTogether>true</KeepTogether>
+                                        <Paragraphs>
+                                          <Paragraph>
+                                            <TextRuns>
+                                              <TextRun>
+                                                <Value>=Format(Fields!TIN_WHEN_APPROVED.Value, "dd/MM/yyyy HH:mm")</Value>
+                                                <Style />
+                                              </TextRun>
+                                            </TextRuns>
+                                            <Style>
+                                              <TextAlign>Center</TextAlign>
+                                            </Style>
+                                          </Paragraph>
+                                        </Paragraphs>
+                                        <rd:DefaultName>TIN_WHEN_APPROVED</rd:DefaultName>
+                                        <ActionInfo>
+                                          <Actions>
+                                            <Action>
+                                              <Drillthrough>
+                                                <ReportName>=IIF(Fields!AGG_ID.Value = "competency_CC", "CPSQ Healthcare Applicant Report Direct", IIF(Parameters!Institution.Value = "Takatuf", "CPSQ HE Applicant Report Direct NoScore", "CPSQ HE Applicant Report Direct"))</ReportName>
+                                                <Parameters>
+                                                  <Parameter Name="Institution">
+                                                    <Value>=Parameters!Institution.Value</Value>
+                                                  </Parameter>
+                                                  <Parameter Name="Session">
+                                                    <Value>=Fields!SES_REFERENCE.Value</Value>
+                                                  </Parameter>
+                                                  <Parameter Name="UserLogin">
+                                                    <Value>=Fields!USR_LOGIN.Value</Value>
+                                                  </Parameter>
+                                                </Parameters>
+                                              </Drillthrough>
+                                            </Action>
+                                          </Actions>
+                                        </ActionInfo>
+                                        <Style>
+                                          <Border>
+                                            <Color>LightGrey</Color>
+                                            <Style>Solid</Style>
+                                          </Border>
+                                          <PaddingLeft>2pt</PaddingLeft>
+                                          <PaddingRight>2pt</PaddingRight>
+                                          <PaddingTop>2pt</PaddingTop>
+                                          <PaddingBottom>2pt</PaddingBottom>
+                                        </Style>
+                                      </Textbox>
+                                    </CellContents>
+                                  </TablixHeader>
+                                  <TablixMembers>
+                                    <TablixMember />
+                                  </TablixMembers>
+                                </TablixMember>
+                              </TablixMembers>
+                            </TablixMember>
+                          </TablixMembers>
+                        </TablixMember>
+                      </TablixMembers>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>CPSQScores</DataSetName>
+            <Top>2.24578cm</Top>
+            <Height>1.2cm</Height>
+            <Width>35.78271cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+          <Textbox Name="Textbox24">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="CPSQ Flag Report for " &amp; IIF(Parameters!Institution.Value = "CambridgeEnglish", "Cambridge English", First(Fields!INS_NAME.Value, "CPSQScores")) &amp; IIF(Parameters!StartDate.Value &lt;&gt; Nothing, vbcrlf &amp; "From: " &amp; Format(Parameters!StartDate.Value, "dd/MM/yyyy") &amp; " ", vbcrlf) &amp; IIF(Parameters!EndDate.Value &lt;&gt; Nothing, "To: " &amp; Format(Parameters!EndDate.Value, "dd/MM/yyyy"), "")</Value>
+                    <Style>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox24</rd:DefaultName>
+            <Height>2.24578cm</Height>
+            <Width>35.78271cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <VerticalAlign>Middle</VerticalAlign>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Height>1.35661in</Height>
+        <Style />
+      </Body>
+      <Width>14.08768in</Width>
+      <Page>
+        <PageHeight>29.7cm</PageHeight>
+        <PageWidth>21cm</PageWidth>
+        <LeftMargin>2cm</LeftMargin>
+        <RightMargin>2cm</RightMargin>
+        <TopMargin>2cm</TopMargin>
+        <BottomMargin>2cm</BottomMargin>
+        <ColumnSpacing>0.13cm</ColumnSpacing>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Institution">
+      <DataType>String</DataType>
+      <Prompt>Institution</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="StartDate">
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>Start Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EndDate">
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>End Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Session">
+      <DataType>String</DataType>
+      <Prompt>Session</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Sessions</DataSetName>
+          <ValueField>SES_REFERENCE</ValueField>
+          <LabelField>SES_REFERENCE</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Threshold">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>1</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Flag level</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>1</Value>
+            <Label>Band 1 only</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>2</Value>
+            <Label>Bands 1 and 2</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>2</NumberOfColumns>
+      <NumberOfRows>3</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Institution</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>StartDate</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>EndDate</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>Session</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>Threshold</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportServerUrl>https://sreps.metritests.com/WebService</rd:ReportServerUrl>
+  <rd:ReportID>9a655bde-53f0-4835-a5b1-561b8f64f79b</rd:ReportID>
+</Report>

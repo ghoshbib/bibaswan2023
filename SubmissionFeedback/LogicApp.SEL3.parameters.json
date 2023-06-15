@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "azureeventgrid_1_Connection_Name": {
+      "value": "SubmissionFeedback"
+    },
+    "azureeventgrid_1_Connection_DisplayName": {
+      "value": "SubmissionFeedback"
+    },
+    "azureeventgrid_1_token:clientId": {
+      "value": "46a4ad0b-bc1c-4df6-bfb4-06a9e0cec7af"
+    },
+    "azureeventgrid_1_token:clientSecret": {
+      "value": "MkcIcmE1cftluYW787T19gRLbSDUjVA6ZCUaIKcXkLM="
+    },
+    "azureeventgrid_1_token:TenantId": {
+      "value": "2f73e501-3af3-4b71-a8ac-04ea8198a9dc"
+    },
+    "azureeventgrid_1_token:grantType": {
+      "value": "client_credentials"
+    },
+    "azuretables_1_Connection_Name": {
+      "value": "SubmissionFeedbackTable"
+    },
+    "azuretables_1_Connection_DisplayName": {
+      "value": "SubmissionFeedbackTable"
+    },
+    "azuretables_1_storageaccount": {
+      "value": "a3metfile001"
+    },
+    "azuretables_1_sharedkey": {
+      "value": "18FKh4+3X9nRiDtD6Bjdlc+J1NzpGhLwefJsFUnEo7ukUQDkPUh5ZpEK5oPChtStDa00F8aY+UWneftDNoq5aw=="
+    },
+    "LogicAppLocation": {
+      "value": "northeurope"
+    },
+    "azureeventgridpublish_1_Connection_Name": {
+      "value": "EliTMessageHandlerTopic"
+    },
+    "azureeventgridpublish_1_Connection_DisplayName": {
+
+      "value": "EliTMessageHandlerTopic"
+    },
+    "azureeventgridpublish_1_endpoint": {
+      "value": "https://elitmessagehandlertopicsel3.northeurope-1.eventgrid.azure.net/api/events"
+    },
+    "azureeventgridpublish_1_api_key": {
+      "value": "UWMOo1Quz/kp0HB5ea3OUWf6Y+jF5MBlpgxdLfYdA5E="
+    },
+    "triggerTopic": {
+      "value": "/subscriptions/2c903d74-e077-4eb2-8c79-c2f78c078c90/resourceGroups/RsgSel3CEMetrica/providers/Microsoft.EventGrid/topics/EliTSubmissionFeedbackSEL3"
+    },
+    "integrationApiUrl": {
+      "value": "https://caelitspeechansweregsys.northeurope-1.eventgrid.azure.net/api/events"
+    },
+    "integrationsaskey": {
+      "reference": {
+        "keyVault": { "id": "/subscriptions/2c903d74-e077-4eb2-8c79-c2f78c078c90/resourceGroups/RsgDevCEMetrica/providers/Microsoft.KeyVault/vaults/MetricaKeyVault" },
+        "secretName": "IntegrationSpeechAnswerTopicAccessKeySys",
+        "secretVersion": "3540c0c85cb846bc97d0433efab75825"
+      }
+    },
+    "httpTriggerLogToAppinsights": {
+      "value": "/subscriptions/2c903d74-e077-4eb2-8c79-c2f78c078c90/resourceGroups/RsgSel3CEMetrica/providers/Microsoft.Web/sites/EliTSpeakingFunctionAppSEL3/functions/HttpTriggerLogToAppinsights"
+    }
+  }
+}

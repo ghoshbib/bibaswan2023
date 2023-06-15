@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Tablix Name="Instances">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>16.87314cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.07938cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Rectangle Name="Rectangle1">
+                      <ReportItems>
+                        <Subreport Name="SOR_NUR">
+                          <ReportName>CPSQStudentReportNUR</ReportName>
+                          <Parameters>
+                            <Parameter Name="Instance">
+                              <Value>=Fields!TIN_ID.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                          <Height>0.02646cm</Height>
+                          <Width>16.87314cm</Width>
+                          <Visibility>
+                            <Hidden>=Parameters!ReportType.Value &lt;&gt; "NUR"</Hidden>
+                          </Visibility>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Subreport>
+                        <Subreport Name="SOR_UTP">
+                          <ReportName>CPSQStudentReportUTP</ReportName>
+                          <Parameters>
+                            <Parameter Name="Candidate">
+                              <Value>=Fields!USR_LOGIN.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                          <Height>0.02646cm</Height>
+                          <Width>16.87314cm</Width>
+                          <ZIndex>1</ZIndex>
+                          <Visibility>
+                            <Hidden>=Parameters!ReportType.Value &lt;&gt; "UTP"</Hidden>
+                          </Visibility>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Subreport>
+                        <Subreport Name="SOR_SYD">
+                          <ReportName>CPSQStudentReportSYD</ReportName>
+                          <Parameters>
+                            <Parameter Name="Instance">
+                              <Value>=Fields!TIN_ID.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                          <Height>0.02646cm</Height>
+                          <Width>16.87314cm</Width>
+                          <ZIndex>2</ZIndex>
+                          <Visibility>
+                            <Hidden>=Parameters!ReportType.Value &lt;&gt; "SYD"</Hidden>
+                          </Visibility>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Subreport>
+                        <Subreport Name="SOR_GMC">
+                          <ReportName>CPSQStudentReportGMC</ReportName>
+                          <Parameters>
+                            <Parameter Name="Instance">
+                              <Value>=Fields!TIN_ID.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                          <Height>0.02646cm</Height>
+                          <Width>16.87314cm</Width>
+                          <ZIndex>3</ZIndex>
+                          <Visibility>
+                            <Hidden>=Parameters!ReportType.Value &lt;&gt; "GMC"</Hidden>
+                          </Visibility>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Subreport>
+                        <Subreport Name="SOR_VET">
+                          <ReportName>CPSQStudentReportVET</ReportName>
+                          <Parameters>
+                            <Parameter Name="Instance">
+                              <Value>=Fields!TIN_ID.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                          <Height>0.02646cm</Height>
+                          <Width>16.87314cm</Width>
+                          <ZIndex>4</ZIndex>
+                          <Visibility>
+                            <Hidden>=Parameters!ReportType.Value &lt;&gt; "VET"</Hidden>
+                          </Visibility>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Subreport>
+                      </ReportItems>
+                      <KeepTogether>true</KeepTogether>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                      </Style>
+                    </Rectangle>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <Group Name="Details" />
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>StudentInstances</DataSetName>
+        <Height>0.07938cm</Height>
+        <Width>16.87314cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
+    </ReportItems>
+    <Height>0.03125in</Height>
+    <Style />
+  </Body>
+  <Width>6.64297in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="MetricaDeliveryLive">
+      <DataSourceReference>MetricaDeliveryLive</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>156e00b3-0f6a-4fde-8c22-40793b8f0566</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="StudentInstances">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Session">
+            <Value>=Parameters!Session.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@StartDate">
+            <Value>=Parameters!StartDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@EndDate">
+            <Value>=Parameters!EndDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Institution">
+            <Value>=Parameters!Institution.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT DISTINCT USR_LOGIN, TIN.TIN_ID FROM TEST_INSTANCES TIN WITH (NOLOCK)
+INNER JOIN USERS U WITH (NOLOCK)
+ON U.USR_ID = TIN_USER_ID
+INNER JOIN ASSIGNMENTS A WITH (NOLOCK)
+ON A.USR_ID = U.USR_ID
+INNER JOIN SESSIONS S WITH (NOLOCK)
+ON S.SES_ID = A.SES_ID
+INNER JOIN AGGREGATIONS AGG
+ON (AGG.TIN_ID = TIN.TIN_ID AND AGG_ID = 'competency_CP')
+WHERE (SES_REFERENCE IN (@Session))
+AND ((TIN_WHEN_APPROVED &gt;= @StartDate OR @StartDate IS NULL)
+AND (DATEADD(Day, -1, TIN_WHEN_APPROVED) &lt;= @EndDate OR @EndDate IS NULL))
+AND (A.INS_ID = @Institution OR @Institution = '' OR @Institution = 'CambridgeEnglish')
+AND TIN_WHEN_APPROVED IS NOT NULL
+ORDER BY USR_LOGIN, TIN.TIN_ID</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="USR_LOGIN">
+          <DataField>USR_LOGIN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TIN_ID">
+          <DataField>TIN_ID</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Institutions">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <CommandText>SELECT DISTINCT INS_GROUP, INS_NAME FROM INSTITUTIONS I
+INNER JOIN ELEGIBILITY E
+ON E.INS_ID = I.INS_ID
+WHERE E.PRD_ID = 'CPSQ'</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="INS_GROUP">
+          <DataField>INS_GROUP</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="INS_NAME">
+          <DataField>INS_NAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Sessions">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Institution">
+            <Value>=Parameters!Institution.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT SES_REFERENCE FROM SESSIONS S
+INNER JOIN SESSION_GROUPS SG
+ON SG.SGP_ID = S.SGP_ID
+WHERE S.INS_ID = @Institution
+AND PRD_ID IN ('CPSQ', 'SBSQ')
+ORDER BY SES_START_DATE DESC</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="SES_REFERENCE">
+          <DataField>SES_REFERENCE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="StartDate">
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>Start Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="EndDate">
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>End Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Institution">
+      <DataType>String</DataType>
+      <Prompt>Institution</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Institutions</DataSetName>
+          <ValueField>INS_GROUP</ValueField>
+          <LabelField>INS_NAME</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Session">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Sessions</DataSetName>
+          <ValueField>SES_REFERENCE</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Session</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Sessions</DataSetName>
+          <ValueField>SES_REFERENCE</ValueField>
+          <LabelField>SES_REFERENCE</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="ReportType">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>NUR</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Report Type</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>NUR</Value>
+            <Label>Standard Healthcare</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>UTP</Value>
+            <Label>Standard HE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>SYD</Value>
+            <Label>Sydney University</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>GMC</Value>
+            <Label>General Medical Council</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>VET</Value>
+            <Label>Cambridge Vets</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>47563bcc-77c8-4d02-82ce-fd6ddfd692f9</rd:ReportID>
+</Report>

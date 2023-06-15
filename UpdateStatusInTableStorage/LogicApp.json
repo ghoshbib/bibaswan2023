@@ -1,0 +1,231 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "azuretables_1_Connection_Name": {
+      "type": "string",
+      "defaultValue": "UpdateStatusInTableStorageTable"
+    },
+    "azuretables_1_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "UpdateStatusInTableStorageTable"
+    },
+    "azuretables_1_storageaccount": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of your storage account"
+      },
+      "defaultValue": "dmetfile001"
+    },
+    "azuretables_1_sharedkey": {
+      "type": "securestring",
+      "metadata": {
+        "description": "The shared storage key of your storage account"
+      },
+      "defaultValue": "alHGNQ/HlaVDcHTfXLvZ9sta5b/dJ5vYrs4YFGDFcjjehIQz5Id4ZFtwL/lZHLDYgaOEkJ6bz8jhpeE3w96ZFg=="
+    },
+    "azureeventgrid_1_Connection_Name": {
+      "type": "string",
+      "defaultValue": "UpdateStatusInTableStorage"
+    },
+    "azureeventgrid_1_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "UpdateStatusInTableStorage"
+    },
+    "azureeventgrid_1_token:clientId": {
+      "type": "string",
+      "metadata": {
+        "description": "Client (or Application) ID of the Azure Active Directory application."
+      },
+      "defaultValue": "46a4ad0b-bc1c-4df6-bfb4-06a9e0cec7af"
+    },
+    "azureeventgrid_1_token:clientSecret": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Client secret of the Azure Active Directory application."
+      },
+      "defaultValue": "MkcIcmE1cftluYW787T19gRLbSDUjVA6ZCUaIKcXkLM="
+    },
+    "azureeventgrid_1_token:TenantId": {
+      "type": "string",
+      "metadata": {
+        "description": "The tenant ID of for the Azure Active Directory application."
+      },
+      "defaultValue": "2f73e501-3af3-4b71-a8ac-04ea8198a9dc"
+    },
+    "azureeventgrid_1_token:grantType": {
+      "type": "string",
+      "metadata": {
+        "description": "Grant type"
+      },
+      "defaultValue": "client_credentials",
+      "allowedValues": [
+        "code",
+        "client_credentials"
+      ]
+    },
+    "triggerTopic": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "LogicAppLocation": {
+      "type": "string",
+      "minLength": 1,
+      "allowedValues": [
+        "[resourceGroup().location]",
+        "eastasia",
+        "southeastasia",
+        "centralus",
+        "eastus",
+        "eastus2",
+        "westus",
+        "northcentralus",
+        "southcentralus",
+        "northeurope",
+        "westeurope",
+        "japanwest",
+        "japaneast",
+        "brazilsouth",
+        "australiaeast",
+        "australiasoutheast",
+        "southindia",
+        "centralindia",
+        "westindia",
+        "canadacentral",
+        "canadaeast",
+        "uksouth",
+        "ukwest",
+        "westcentralus",
+        "westus2"
+      ],
+      "defaultValue": "northeurope"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "properties": {
+        "state": "Enabled",
+        "definition": {
+          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+          "actions": {
+            "Update_Request_sent_status_in_Table_Storage": {
+              "runAfter": {},
+              "type": "ApiConnection",
+              "inputs": {
+                "body": {
+                  "AnswerId": "@triggerBody()['data']['msgSubmitSpeech'][0]['answerId']",
+                  "EventTime": "@utcNow()",
+                  "Status": "Sent"
+                },
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['azuretables']['connectionId']"
+                  }
+                },
+                "method": "put",
+                "path": "/Tables/@{encodeURIComponent('EliTSendStatus')}/entities(PartitionKey='@{encodeURIComponent(substring(triggerBody()['data']['msgSubmitSpeech'][0]['answerId'], 0, 2))}',RowKey='@{encodeURIComponent(triggerBody()['data']['msgSubmitSpeech'][0]['answerId'])}')"
+              }
+            }
+          },
+          "parameters": {
+            "$connections": {
+              "defaultValue": {},
+              "type": "Object"
+            }
+          },
+          "triggers": {
+            "When_a_resource_event_occurs": {
+              "splitOn": "@triggerBody()",
+              "type": "ApiConnectionWebhook",
+              "inputs": {
+                "body": {
+                  "properties": {
+                    "destination": {
+                      "endpointType": "webhook",
+                      "properties": {
+                        "endpointUrl": "@{listCallbackUrl()}"
+                      }
+                    },
+                    "topic": "[parameters('triggerTopic')]"
+                  }
+                },
+                "host": {
+                  "connection": {
+                    "name": "@parameters('$connections')['azureeventgrid']['connectionId']"
+                  }
+                },
+                "path": "/subscriptions/@{encodeURIComponent('2c903d74-e077-4eb2-8c79-c2f78c078c90')}/providers/@{encodeURIComponent('Microsoft.EventGrid.Topics')}/resource/eventSubscriptions",
+                "queries": {
+                  "x-ms-api-version": "2017-09-15-preview"
+                }
+              }
+            }
+          },
+          "contentVersion": "1.0.0.0",
+          "outputs": {}
+        },
+        "parameters": {
+          "$connections": {
+            "value": {
+              "azuretables": {
+                "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('LogicAppLocation'), '/managedApis/', 'azuretables')]",
+                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('azuretables_1_Connection_Name'))]",
+                "connectionName": "[parameters('azuretables_1_Connection_Name')]"
+              },
+              "azureeventgrid": {
+                "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('LogicAppLocation'), '/managedApis/', 'azureeventgrid')]",
+                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('azureeventgrid_1_Connection_Name'))]",
+                "connectionName": "[parameters('azureeventgrid_1_Connection_Name')]"
+              }
+            }
+          }
+        }
+      },
+      "name": "UpdateStatusInTableStorage",
+      "type": "Microsoft.Logic/workflows",
+      "location": "[parameters('LogicAppLocation')]",
+      "tags": {},
+      "apiVersion": "2016-06-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/connections', parameters('azuretables_1_Connection_Name'))]",
+        "[resourceId('Microsoft.Web/connections', parameters('azureeventgrid_1_Connection_Name'))]"
+      ]
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "[parameters('azuretables_1_Connection_Name')]",
+      "location": "[parameters('LogicAppLocation')]",
+      "properties": {
+        "api": {
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('LogicAppLocation'), '/managedApis/', 'azuretables')]"
+        },
+        "displayName": "[parameters('azuretables_1_Connection_DisplayName')]",
+        "parameterValues": {
+          "storageaccount": "[parameters('azuretables_1_storageaccount')]",
+          "sharedkey": "[parameters('azuretables_1_sharedkey')]"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "[parameters('azureeventgrid_1_Connection_Name')]",
+      "location": "[parameters('LogicAppLocation')]",
+      "properties": {
+        "api": {
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('LogicAppLocation'), '/managedApis/', 'azureeventgrid')]"
+        },
+        "displayName": "[parameters('azureeventgrid_1_Connection_DisplayName')]",
+        "parameterValues": {
+          "token:clientId": "[parameters('azureeventgrid_1_token:clientId')]",
+          "token:clientSecret": "[parameters('azureeventgrid_1_token:clientSecret')]",
+          "token:TenantId": "[parameters('azureeventgrid_1_token:TenantId')]",
+          "token:grantType": "[parameters('azureeventgrid_1_token:grantType')]"
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}

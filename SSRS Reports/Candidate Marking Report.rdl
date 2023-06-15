@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Subreport Name="CandidateMarkingReportLive">
+        <ReportName>Candidate Marking Report - Live</ReportName>
+        <Parameters>
+          <Parameter Name="Session">
+            <Value>=Parameters!Session.Value</Value>
+          </Parameter>
+        </Parameters>
+        <Height>1.32937cm</Height>
+        <Width>24.75816cm</Width>
+        <Visibility>
+          <Hidden>=Parameters!Database.Value &lt;&gt; "L"</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+      <Subreport Name="CandidateMarkingReportQA">
+        <ReportName>Candidate Marking Report - QA</ReportName>
+        <Parameters>
+          <Parameter Name="Session">
+            <Value>=Parameters!Session.Value</Value>
+          </Parameter>
+        </Parameters>
+        <Top>1.32937cm</Top>
+        <Left>0cm</Left>
+        <Height>1.32937cm</Height>
+        <Width>24.75816cm</Width>
+        <ZIndex>1</ZIndex>
+        <Visibility>
+          <Hidden>=Parameters!Database.Value &lt;&gt; "Q"</Hidden>
+        </Visibility>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+    </ReportItems>
+    <Height>1.04675in</Height>
+    <Style />
+  </Body>
+  <Width>9.74731in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="MetricaDeliveryLive">
+      <DataSourceReference>MetricaDeliveryLive</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>53152264-a67b-4d27-8d35-d62a3c2ceade</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="MetricaLiveQA">
+      <DataSourceReference>MetricaLiveQA</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>164fd777-d274-4de8-9095-0c807ab01f27</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="BMATCandidateMarking">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Session">
+            <Value>=Parameters!Session.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>WITH Marks AS
+(
+SELECT U.USR_ID, U.USR_LOGIN, U.USR_FIRSTNAME, U.USR_SURNAME, U.USR_ATT1, MSU.USR_IS_CALIBRATED, MSU.USR_IS_PE, MSU.USR_MARK_COUNT, MSU.IS_REJECTED, MSS.MTY_ID, MSS.PRD_ID, MSS.MRS_NAME, MSS.MRS_START_DATE, MSS.MRS_WHEN_COMPLETED, MSS.INS_ID, MSS.MRS_MAX_ITEMS_PER_DAY, EMI.EMI_WHEN_CREATED, EMI.EMI_SCORE, EMI.EMI_DESCRIPTORS, U2.USR_LOGIN AS CandLogin, U2.USR_FIRSTNAME AS CandFirst, U2.USR_SURNAME AS CandSurname, TIN.TST_ID, INS.INS_GROUP, ROW_NUMBER() OVER (PARTITION BY U2.USR_LOGIN ORDER BY EMI.EMI_WHEN_CREATED) AS MarkOrder
+FROM MARKING_SESSION_USERS MSU
+INNER JOIN MARKING_SESSIONS MSS
+ON MSS.MSN_ID = MSU.MSN_ID
+INNER JOIN USERS U
+ON U.USR_ID = MSU.USR_ID
+INNER JOIN EXAMINER_MARKED_ITEM EMI
+ON (EMI.MSN_ID = MSU.MSN_ID AND EMI.USR_ID = MSU.USR_ID)
+INNER JOIN TEST_INSTANCES TIN
+ON TIN.TIN_ID = EMI.TIN_ID
+INNER JOIN USERS U2
+ON U2.USR_ID = TIN.TIN_USER_ID
+INNER JOIN ASSIGNMENTS ASN
+ON ASN.ASN_ID = TIN.TIN_ASSIGNMENT_ID
+INNER JOIN SESSIONS SES
+ON SES.SES_ID = ASN.SES_ID
+INNER JOIN INSTITUTIONS INS
+ON INS.INS_ID = MSS.INS_ID
+WHERE SES_REFERENCE LIKE @Session
+)
+SELECT CandLogin, 
+CandFirst, 
+CandSurname, 
+INS_ID,
+INS_GROUP, 
+USR_ATT1, 
+CentreNum = CASE 
+WHEN USR_ATT1 IS NULL THEN INS_GROUP
+ELSE USR_ATT1
+END, 
+max(case when MarkOrder = 1 then USR_ID end) Mrkr1,
+max(case when MarkOrder = 1 then EMI_DESCRIPTORS end) Desc1,
+max(case when MarkOrder = 2 then USR_ID end) Mrkr2,
+max(case when MarkOrder = 2 then EMI_DESCRIPTORS end) Desc2,
+max(case when MarkOrder = 3 then USR_ID end) Mrkr3,
+max(case when MarkOrder = 3 then EMI_DESCRIPTORS end) Desc3
+FROM Marks
+GROUP BY CandLogin, CandFirst, CandSurname, INS_ID, INS_GROUP, USR_ATT1</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="CandLogin">
+          <DataField>CandLogin</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CandFirst">
+          <DataField>CandFirst</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CandSurname">
+          <DataField>CandSurname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="INS_ID">
+          <DataField>INS_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Mrkr1">
+          <DataField>Mrkr1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="USR_ATT1">
+          <DataField>USR_ATT1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CentreNum">
+          <DataField>CentreNum</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="INS_GROUP">
+          <DataField>INS_GROUP</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Desc1">
+          <DataField>Desc1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Mrkr2">
+          <DataField>Mrkr2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Desc2">
+          <DataField>Desc2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Mrkr3">
+          <DataField>Mrkr3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Desc3">
+          <DataField>Desc3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="Database">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>L</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Database</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>L</Value>
+            <Label>Live</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Q</Value>
+            <Label>Live QA</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Session">
+      <DataType>String</DataType>
+      <Prompt>Session</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>f5e01475-4ac5-477a-83dd-1ee3ed94a08a</rd:ReportID>
+</Report>

@@ -1,0 +1,27 @@
+﻿﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Windows/src/Container.Application/Container.Application.sfproj.user
+/Windows/src/GuestExe.Application/GuestExe.Application.sfproj.user
+.vs/
+[Oo]bj/
+[Bb]in/
+pkg/
+objd/
+Backup*/
+TestResults/
+.nuget/
+*.sln.ide/
+_ReSharper.*/
+packages/
+.vs/
+*.user
+*.suo
+*.cache
+*.docstates
+_ReSharper.*
+nuget.exe
+.settings
+.config
+*.sln.ide

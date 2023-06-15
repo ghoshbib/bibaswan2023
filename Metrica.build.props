@@ -1,0 +1,126 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!--
+            TeamCity will override this
+            Set the team city build number to
+            "3.4.{0}.{build.vcs.number.1}"
+            you will need to change the 3.4 part to your major.minor build number
+            for support branch builds you can change the build number starting point in team city
+        -->
+    <BUILD_NUMBER Condition="$(BUILD_NUMBER)==''">0.0.0.0</BUILD_NUMBER>
+    <Config Condition="$(Config)==''">Release</Config>
+
+    <DeployFolder>$(MSBuildProjectDirectory)\Deploy</DeployFolder>
+    <SQLFolderAdmin>$(MSBuildProjectDirectory)\Metrica.Database\MetricaAdmin</SQLFolderAdmin>
+    <SQLFolderDelivery>$(MSBuildProjectDirectory)\Metrica.Database\MetricaDelivery</SQLFolderDelivery>
+    <!--Zip Path for Logic Apps -->
+    <CreateSpeechSubmission>$(MSBuildProjectDirectory)\CreateSpeechSubmission</CreateSpeechSubmission>
+    <ELiTSubmission>$(MSBuildProjectDirectory)\ELiTSubmission</ELiTSubmission>
+    <GetSpeechSubmissionResult>$(MSBuildProjectDirectory)\GetSpeechSubmissionResult</GetSpeechSubmissionResult>
+    <SubmissionFeedback>$(MSBuildProjectDirectory)\SubmissionFeedback</SubmissionFeedback>    
+    <SubmitQuestion>$(MSBuildProjectDirectory)\SubmitQuestion</SubmitQuestion>
+    <SubmitSpeech>$(MSBuildProjectDirectory)\SubmitSpeech</SubmitSpeech>
+    <UpdateSpeechSubmissionStatusInTableStorage>$(MSBuildProjectDirectory)\UpdateSpeechSubmissionStatusInTableStorage</UpdateSpeechSubmissionStatusInTableStorage>
+    <UpdateStatusInTableStorage>$(MSBuildProjectDirectory)\UpdateStatusInTableStorage</UpdateStatusInTableStorage>
+    <UpdateSubmitQuestion>$(MSBuildProjectDirectory)\UpdateSubmitQuestion</UpdateSubmitQuestion>
+	<ElitAuditMessages>$(MSBuildProjectDirectory)\ElitAuditMessages</ElitAuditMessages>
+	<EliTErrorHandler>$(MSBuildProjectDirectory)\EliTErrorHandler</EliTErrorHandler>
+	<EliTNotificationHandler>$(MSBuildProjectDirectory)\EliTNotificationHandler</EliTNotificationHandler>
+	<EliTPublishItemNotifier>$(MSBuildProjectDirectory)\EliTPublishItemNotifier</EliTPublishItemNotifier>
+	<ELiTSLAChecker>$(MSBuildProjectDirectory)\ELiTSLAChecker</ELiTSLAChecker>
+	<EliTSpeechSubmissionNotifier>$(MSBuildProjectDirectory)\EliTSpeechSubmissionNotifier</EliTSpeechSubmissionNotifier>
+	<EliTSubmitFeedbackNotifier>$(MSBuildProjectDirectory)\EliTSubmitFeedbackNotifier</EliTSubmitFeedbackNotifier>
+	<EliTSubmitSpeechNotifier>$(MSBuildProjectDirectory)\EliTSubmitSpeechNotifier</EliTSubmitSpeechNotifier>
+	<ElitUpdateStateEngine>$(MSBuildProjectDirectory)\ElitUpdateStateEngine</ElitUpdateStateEngine>
+	<MetricaExaminerNotificationHourly>$(MSBuildProjectDirectory)\MetricaExaminerNotificationHourly</MetricaExaminerNotificationHourly>
+	<MetricaExaminerNotificationDaily>$(MSBuildProjectDirectory)\MetricaExaminerNotificationDaily</MetricaExaminerNotificationDaily>
+	<EliTWritingRuleMatchLA>$(MSBuildProjectDirectory)\EliTWritingRuleMatchLA</EliTWritingRuleMatchLA>
+	<EliTWritingResultProcessingLA>$(MSBuildProjectDirectory)\EliTWritingResultProcessingLA</EliTWritingResultProcessingLA>
+	<ElitWritingCambridgeOneNotifier>$(MSBuildProjectDirectory)\ElitWritingCambridgeOneNotifier</ElitWritingCambridgeOneNotifier>
+	<SubmitText>$(MSBuildProjectDirectory)\SubmitText</SubmitText>
+	<UpdateSubmitTextStatus>$(MSBuildProjectDirectory)\UpdateSubmitTextStatus</UpdateSubmitTextStatus>
+	<ELiTWritingSLAChecker>$(MSBuildProjectDirectory)\ELiTWritingSLAChecker</ELiTWritingSLAChecker>
+	<EliTSubmitTextNotifier>$(MSBuildProjectDirectory)\EliTSubmitTextNotifier</EliTSubmitTextNotifier>
+    <!--Zip Path for Function App -->
+    <EliTSpeakingFunctionApp>$(MSBuildProjectDirectory)\EliTSpeakingFunctionApp</EliTSpeakingFunctionApp>
+	<ExaminerNotificationFunctionApp>$(MSBuildProjectDirectory)\ExaminerNotificationFunctionApp</ExaminerNotificationFunctionApp>
+	<EliTWritingFunctionApp>$(MSBuildProjectDirectory)\EliTWritingFunctionApp</EliTWritingFunctionApp>
+	<FetchAppConfigFunctionApp>$(MSBuildProjectDirectory)\FetchAppConfigFunctionApp</FetchAppConfigFunctionApp>
+    <ArtifactsFolder>$(MSBuildProjectDirectory)\Deploy\Artifacts</ArtifactsFolder>
+    <DeployArchiveFilename>Metrica.Deploy.$(BUILD_NUMBER).$(BUILD_VCS_NUMBER).zip</DeployArchiveFilename>
+
+    <!-- libraries excluded in report -->
+    <Coverage_Exclude>
+      [CrystalDecisions*]*
+      ;[DynamicPDF*]*
+      ;[Eps*]*
+      ;[log4net*]*
+      ;[MarksCaptureTypes]*
+      ;[MetaBuilders*]*
+      ;[Microsoft*]*
+      ;[nunit*]*
+      ;[*Tests*]*
+    </Coverage_Exclude>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <VSSolution Include="$(MSBuildProjectDirectory)\Metrica.sln" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyInfoForVersioning Include="$(MSBuildProjectDirectory)\**\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Web Include="$(MSBuildProjectDirectory)\Metrica\Metrica.csproj">
+      <Name>Metrica</Name>
+      <ProjectPath>$(MSBuildProjectDirectory)\Metrica\</ProjectPath>
+    </Web>
+    <Web Include="$(MSBuildProjectDirectory)\MetricaAdmin\Metricaadmin.csproj">
+      <Name>MetricaAdmin</Name>
+      <ProjectPath>$(MSBuildProjectDirectory)\MetricaAdmin\</ProjectPath>
+    </Web>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WinService Include="$(MSBuildProjectDirectory)\MetricaWinService\MetricaWinService.csproj">
+      <Name>MetricaWinService</Name>
+      <WinServiceProjectPath>$(MSBuildProjectDirectory)\MetricaWinService\</WinServiceProjectPath>
+    </WinService>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WinAdminService Include="$(MSBuildProjectDirectory)\MetricaAdminWinService\MetricaAdminWinService.csproj">
+      <Name>MetricaAdminWinService</Name>
+      <WinAdminServiceProjectPath>$(MSBuildProjectDirectory)\MetricaAdminWinService\</WinAdminServiceProjectPath>
+    </WinAdminService>
+  </ItemGroup>
+  <ItemGroup>
+    <WinBarclaysService Include="$(MSBuildProjectDirectory)\Metrica_BarclaysPendingPaymentsService\Metrica.BarclaysPendingPaymentsService.csproj">
+      <Name>MetricaBarclaysPaymentService</Name>
+      <WinAdminServiceProjectPath>$(MSBuildProjectDirectory)\Metrica_BarclaysPendingPaymentsService\</WinAdminServiceProjectPath>
+    </WinBarclaysService>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Testing Include="$(MSBuildProjectDirectory)\Metrica.Selenium.Test\Metrica.Selenium.Test.csproj">
+      <Name>Testing</Name>
+      <TestingProjectPath>$(MSBuildProjectDirectory)\Metrica.Selenium.Test\</TestingProjectPath>
+    </Testing>
+  </ItemGroup>
+
+  <ItemGroup>
+    <MetricaServices Include="$(MSBuildProjectDirectory)\Metrica.Services\Metrica.Services.csproj">
+      <Name>MetricaServices</Name>
+      <MetricaServicesProjectPath>$(MSBuildProjectDirectory)\Metrica.Services\</MetricaServicesProjectPath>
+    </MetricaServices>
+  </ItemGroup>
+
+  <ItemGroup>
+    <MetricaTestDeliverySite Include="$(MSBuildProjectDirectory)\Metrica.TestDelivery\Metrica.TestDelivery.csproj">
+      <Name>MetricaTestDeliverySite</Name>
+      <MetricaTestDeliverySiteProjectPath>$(MSBuildProjectDirectory)\Metrica.TestDelivery\</MetricaTestDeliverySiteProjectPath>
+    </MetricaTestDeliverySite>
+  </ItemGroup>
+</Project>

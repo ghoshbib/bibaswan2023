@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Subreport Name="CaMLAUsedLogins">
+        <ReportName>CaMLA Logins - Used</ReportName>
+        <Parameters>
+          <Parameter Name="StatusValue">
+            <Value>not attempted</Value>
+          </Parameter>
+        </Parameters>
+        <Top>1.49076cm</Top>
+        <Height>1.50576cm</Height>
+        <Width>39.30292cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+      <Subreport Name="CaMLAUnusedLogins">
+        <ReportName>CaMLA Logins - Unused</ReportName>
+        <Parameters>
+          <Parameter Name="StatusValue">
+            <Value>not attempted</Value>
+          </Parameter>
+        </Parameters>
+        <Top>2.99653cm</Top>
+        <Height>1.3823cm</Height>
+        <Width>39.30292cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+      <Textbox Name="Textbox1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="CaMLA User Login Report as at " &amp; Format(Today, "dd/MM/yyyy")</Value>
+                <Style>
+                  <FontSize>18pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Height>1.42021cm</Height>
+        <Width>13.66542cm</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <Height>1.72395in</Height>
+    <Style />
+  </Body>
+  <Width>15.47359in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="MetricaDeliveryLive">
+      <DataSourceReference>MetricaDeliveryLive</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>c3a2be54-6732-436c-8e57-798064b9b43c</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="MetricaLiveQA">
+      <DataSourceReference>MetricaLiveQA</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>77bb2d04-efb7-43fe-af2a-adaec82a06c9</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>3f4d860d-6831-4238-88e4-e93f39dbf0ed</rd:ReportID>
+</Report>

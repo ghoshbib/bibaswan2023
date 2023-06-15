@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Chart Name="Chart5">
+        <ChartCategoryHierarchy>
+          <ChartMembers>
+            <ChartMember>
+              <Group Name="Chart5_CategoryGroup">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!SKILL.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!SKILL.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <Label>=Fields!SKILL.Value</Label>
+            </ChartMember>
+          </ChartMembers>
+        </ChartCategoryHierarchy>
+        <ChartSeriesHierarchy>
+          <ChartMembers>
+            <ChartMember>
+              <Group Name="Chart2_SeriesGroup4">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!EXAM_YEAR.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!EXAM_YEAR.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <Label>=Fields!EXAM_YEAR.Value</Label>
+            </ChartMember>
+          </ChartMembers>
+        </ChartSeriesHierarchy>
+        <ChartData>
+          <ChartSeriesCollection>
+            <ChartSeries Name="OUTCOME">
+              <ChartDataPoints>
+                <ChartDataPoint>
+                  <ChartDataPointValues>
+                    <Y>=Format(Fields!OUTCOME.Value, "F1")</Y>
+                  </ChartDataPointValues>
+                  <ChartDataLabel>
+                    <Style />
+                  </ChartDataLabel>
+                  <Style />
+                  <ChartMarker>
+                    <Style />
+                  </ChartMarker>
+                  <DataElementOutput>Output</DataElementOutput>
+                </ChartDataPoint>
+              </ChartDataPoints>
+              <Style />
+              <ChartEmptyPoints>
+                <Style />
+                <ChartMarker>
+                  <Style />
+                </ChartMarker>
+                <ChartDataLabel>
+                  <Style />
+                </ChartDataLabel>
+              </ChartEmptyPoints>
+              <ValueAxisName>Primary</ValueAxisName>
+              <CategoryAxisName>Primary</CategoryAxisName>
+              <ChartSmartLabel>
+                <CalloutLineColor>Black</CalloutLineColor>
+                <MinMovingDistance>0pt</MinMovingDistance>
+              </ChartSmartLabel>
+            </ChartSeries>
+          </ChartSeriesCollection>
+        </ChartData>
+        <ChartAreas>
+          <ChartArea Name="Default">
+            <ChartCategoryAxes>
+              <ChartAxis Name="Primary">
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption />
+                  <Style>
+                    <FontSize>11pt</FontSize>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Enabled>False</Enabled>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <LabelsAutoFitDisabled>true</LabelsAutoFitDisabled>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+              <ChartAxis Name="Secondary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>Axis Title</Caption>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Enabled>False</Enabled>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Location>Opposite</Location>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+            </ChartCategoryAxes>
+            <ChartValueAxes>
+              <ChartAxis Name="Primary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>Outcome</Caption>
+                  <Style>
+                    <FontSize>11pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+              <ChartAxis Name="Secondary">
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
+                <ChartAxisTitle>
+                  <Caption>Axis Title</Caption>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </ChartAxisTitle>
+                <ChartMajorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                    </Border>
+                  </Style>
+                </ChartMajorGridLines>
+                <ChartMinorGridLines>
+                  <Style>
+                    <Border>
+                      <Color>Gainsboro</Color>
+                      <Style>Dotted</Style>
+                    </Border>
+                  </Style>
+                </ChartMinorGridLines>
+                <ChartMinorTickMarks>
+                  <Length>0.5</Length>
+                </ChartMinorTickMarks>
+                <CrossAt>NaN</CrossAt>
+                <Location>Opposite</Location>
+                <Minimum>NaN</Minimum>
+                <Maximum>NaN</Maximum>
+                <ChartAxisScaleBreak>
+                  <Style />
+                </ChartAxisScaleBreak>
+              </ChartAxis>
+            </ChartValueAxes>
+            <Style>
+              <BackgroundGradientType>None</BackgroundGradientType>
+            </Style>
+          </ChartArea>
+        </ChartAreas>
+        <ChartLegends>
+          <ChartLegend Name="Default">
+            <Style>
+              <BackgroundGradientType>None</BackgroundGradientType>
+              <FontSize>8pt</FontSize>
+            </Style>
+            <ChartLegendTitle>
+              <Caption />
+              <Style>
+                <FontSize>8pt</FontSize>
+                <FontWeight>Bold</FontWeight>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </ChartLegendTitle>
+            <HeaderSeparatorColor>Black</HeaderSeparatorColor>
+            <ColumnSeparatorColor>Black</ColumnSeparatorColor>
+          </ChartLegend>
+        </ChartLegends>
+        <ChartTitles>
+          <ChartTitle Name="Default">
+            <Caption>="Component Cambridge English Scale Score Year on Year Comparison" &amp; vbcrlf &amp; "Centre: " &amp; UCase(Parameters!Centre.Value)</Caption>
+            <Style>
+              <BackgroundGradientType>None</BackgroundGradientType>
+              <FontSize>12pt</FontSize>
+              <FontWeight>Bold</FontWeight>
+              <TextAlign>General</TextAlign>
+              <VerticalAlign>Top</VerticalAlign>
+            </Style>
+          </ChartTitle>
+        </ChartTitles>
+        <Palette>BrightPastel</Palette>
+        <ChartBorderSkin>
+          <Style>
+            <BackgroundColor>Gray</BackgroundColor>
+            <BackgroundGradientType>None</BackgroundGradientType>
+            <Color>White</Color>
+          </Style>
+        </ChartBorderSkin>
+        <ChartNoDataMessage Name="NoDataMessage">
+          <Caption>No Data Available</Caption>
+          <Style>
+            <BackgroundGradientType>None</BackgroundGradientType>
+            <TextAlign>General</TextAlign>
+            <VerticalAlign>Top</VerticalAlign>
+          </Style>
+        </ChartNoDataMessage>
+        <DataSetName>ChartA</DataSetName>
+        <Top>0cm</Top>
+        <Left>0cm</Left>
+        <Height>16.74432cm</Height>
+        <Width>24.7212cm</Width>
+        <Style>
+          <Border>
+            <Color>LightGrey</Color>
+            <Style>Solid</Style>
+          </Border>
+          <BackgroundColor>White</BackgroundColor>
+          <BackgroundGradientType>None</BackgroundGradientType>
+        </Style>
+      </Chart>
+      <Tablix Name="Tablix1">
+        <TablixCorner>
+          <TablixCornerRows>
+            <TablixCornerRow>
+              <TablixCornerCell>
+                <CellContents>
+                  <Textbox Name="Textbox5">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value />
+                            <Style>
+                              <FontWeight>Bold</FontWeight>
+                              <Color>Blue</Color>
+                            </Style>
+                          </TextRun>
+                        </TextRuns>
+                        <Style>
+                          <TextAlign>Left</TextAlign>
+                        </Style>
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>Textbox5</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixCornerCell>
+            </TablixCornerRow>
+          </TablixCornerRows>
+        </TablixCorner>
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>2.65875cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="OUTCOME">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Format(Fields!OUTCOME.Value, "F1")</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>OUTCOME</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <Group Name="EXAM_YEAR">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!EXAM_YEAR.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!EXAM_YEAR.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <TablixHeader>
+                <Size>0.6cm</Size>
+                <CellContents>
+                  <Textbox Name="EXAM_YEAR">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>=Fields!EXAM_YEAR.Value</Value>
+                            <Style>
+                              <FontWeight>Bold</FontWeight>
+                            </Style>
+                          </TextRun>
+                        </TextRuns>
+                        <Style>
+                          <TextAlign>Center</TextAlign>
+                        </Style>
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>EXAM_YEAR</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+            </TablixMember>
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <Group Name="SKILL">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!SKILL.Value</GroupExpression>
+                </GroupExpressions>
+              </Group>
+              <SortExpressions>
+                <SortExpression>
+                  <Value>=Fields!SKILL.Value</Value>
+                </SortExpression>
+              </SortExpressions>
+              <TablixHeader>
+                <Size>4.29917cm</Size>
+                <CellContents>
+                  <Textbox Name="SKILL">
+                    <CanGrow>true</CanGrow>
+                    <KeepTogether>true</KeepTogether>
+                    <Paragraphs>
+                      <Paragraph>
+                        <TextRuns>
+                          <TextRun>
+                            <Value>=Fields!SKILL.Value</Value>
+                            <Style>
+                              <Color>Blue</Color>
+                            </Style>
+                          </TextRun>
+                        </TextRuns>
+                        <Style>
+                          <TextAlign>Left</TextAlign>
+                        </Style>
+                      </Paragraph>
+                    </Paragraphs>
+                    <rd:DefaultName>SKILL</rd:DefaultName>
+                    <Style>
+                      <Border>
+                        <Color>LightGrey</Color>
+                        <Style>Solid</Style>
+                      </Border>
+                      <PaddingLeft>5pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                  </Textbox>
+                </CellContents>
+              </TablixHeader>
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>ChartA</DataSetName>
+        <Top>16.74432cm</Top>
+        <Left>3.98685cm</Left>
+        <Height>1.2cm</Height>
+        <Width>6.95792cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
+    </ReportItems>
+    <Height>17.94432cm</Height>
+    <Style />
+  </Body>
+  <Width>24.7212cm</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="EnhancedResults">
+      <DataSourceReference>EnhancedResults</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>0c43a105-f777-43fe-97c7-88e15bbb243b</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="ChartA">
+      <Query>
+        <DataSourceName>EnhancedResults</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Centre">
+            <Value>=Parameters!Centre.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>WITH YD_CE AS
+(
+SELECT COUNTRY_CODE COLLATE DATABASE_DEFAULT AS COUNTRY_CODE, EXAM_YEAR, 'Reading' AS SKILL,
+COUNT(*) AS CANDCOUNT, AVG(IIF(CHARINDEX('.', MEASURE) = 0, CAST(MEASURE AS FLOAT), CAST(LEFT(MEASURE, CHARINDEX('.', MEASURE) - 1) AS FLOAT))) AS OUTCOME FROM CPE_EPS_RESULTS CER
+INNER JOIN SPLITCOMPONENTRESULTS SP
+ON (SP.SESSIONID = CER.SESSIONID
+AND SP.CENTRENUMBER = CER.CENTRENUMBER COLLATE DATABASE_DEFAULT
+AND SP.CANDIDATENUMBER = CER.CANDIDATENUMBER)
+WHERE CER.CENTRENUMBER = @Centre
+AND MARKELEMENTID = 1
+AND MEASURE &lt;&gt; 'NR'
+GROUP BY COUNTRY_CODE, EXAM_YEAR
+UNION ALL
+SELECT COUNTRY_CODE COLLATE DATABASE_DEFAULT AS COUNTRY_CODE, EXAM_YEAR, 'Writing' AS SKILL,
+COUNT(*) AS CANDCOUNT, AVG(IIF(CHARINDEX('.', MEASURE) = 0, CAST(MEASURE AS FLOAT), CAST(LEFT(MEASURE, CHARINDEX('.', MEASURE) - 1) AS FLOAT))) AS OUTCOME FROM CPE_EPS_RESULTS CER
+INNER JOIN SPLITCOMPONENTRESULTS SP
+ON (SP.SESSIONID = CER.SESSIONID
+AND SP.CENTRENUMBER = CER.CENTRENUMBER COLLATE DATABASE_DEFAULT
+AND SP.CANDIDATENUMBER = CER.CANDIDATENUMBER)
+WHERE CER.CENTRENUMBER = @Centre
+AND MARKELEMENTID = 2
+AND MEASURE &lt;&gt; 'NR'
+GROUP BY COUNTRY_CODE, EXAM_YEAR
+UNION ALL
+SELECT COUNTRY_CODE COLLATE DATABASE_DEFAULT AS COUNTRY_CODE, EXAM_YEAR, 'Use of English' AS SKILL,
+COUNT(*) AS CANDCOUNT, AVG(IIF(CHARINDEX('.', MEASURE) = 0, CAST(MEASURE AS FLOAT), CAST(LEFT(MEASURE, CHARINDEX('.', MEASURE) - 1) AS FLOAT))) AS OUTCOME FROM CPE_EPS_RESULTS CER
+INNER JOIN SPLITCOMPONENTRESULTS SP
+ON (SP.SESSIONID = CER.SESSIONID
+AND SP.CENTRENUMBER = CER.CENTRENUMBER COLLATE DATABASE_DEFAULT
+AND SP.CANDIDATENUMBER = CER.CANDIDATENUMBER)
+WHERE CER.CENTRENUMBER = @Centre
+AND MARKELEMENTID = 3
+AND MEASURE &lt;&gt; 'NR'
+GROUP BY COUNTRY_CODE, EXAM_YEAR
+UNION ALL
+SELECT COUNTRY_CODE COLLATE DATABASE_DEFAULT AS COUNTRY_CODE, EXAM_YEAR, 'Reading' AS SKILL, COUNT(*) AS CANDCOUNT, AVG(CAST(VALUE AS FLOAT)) AS OUTCOME FROM CPE_SAP_RESULTS CSR
+INNER JOIN CENTRES CE
+ON CE.CENTRE_NUMBER = CSR.CENTREECCUID COLLATE DATABASE_DEFAULT
+WHERE CENTREECCUID = @Centre
+AND MEASURE = 'CPE-R-CEScoreRep' 
+AND value &lt;&gt; 'NR'
+GROUP BY COUNTRY_CODE, EXAM_YEAR
+UNION ALL
+SELECT COUNTRY_CODE COLLATE DATABASE_DEFAULT AS COUNTRY_CODE, EXAM_YEAR, 'Writing' AS SKILL, COUNT(*) AS CANDCOUNT, AVG(CAST(VALUE AS FLOAT)) AS OUTCOME FROM CPE_SAP_RESULTS CSR
+INNER JOIN CENTRES CE
+ON CE.CENTRE_NUMBER = CSR.CENTREECCUID COLLATE DATABASE_DEFAULT
+WHERE CENTREECCUID = @Centre
+AND MEASURE = 'CPE-W-CEScoreRep' 
+AND value &lt;&gt; 'NR'
+GROUP BY COUNTRY_CODE, EXAM_YEAR
+UNION ALL
+SELECT COUNTRY_CODE COLLATE DATABASE_DEFAULT AS COUNTRY_CODE, EXAM_YEAR, 'Use of English'AS SKILL, COUNT(*) AS CANDCOUNT, AVG(CAST(VALUE AS FLOAT)) AS OUTCOME FROM CPE_SAP_RESULTS CSR
+INNER JOIN CENTRES CE
+ON CE.CENTRE_NUMBER = CSR.CENTREECCUID COLLATE DATABASE_DEFAULT
+WHERE CENTREECCUID = @Centre
+AND MEASURE = 'CPE-U-CEScoreRep' 
+AND value &lt;&gt; 'NR'
+GROUP BY COUNTRY_CODE, EXAM_YEAR
+),
+CE_A1 AS
+(
+SELECT COUNTRY_CODE, EXAM_YEAR, SKILL, (CANDCOUNT * OUTCOME) AS CANDTOTAL FROM YD_CE
+),
+CE_A AS
+(
+SELECT COUNTRY_CODE, EXAM_YEAR, SKILL, SUM(CANDTOTAL) AS CANDSUM FROM CE_A1
+GROUP BY COUNTRY_CODE, EXAM_YEAR, SKILL
+),
+CE_B AS
+(
+SELECT COUNTRY_CODE, EXAM_YEAR, SKILL, SUM(CANDCOUNT) AS CANDTOTAL FROM YD_CE
+GROUP BY COUNTRY_CODE, EXAM_YEAR, SKILL
+)
+SELECT 'CE' AS REGION, CA.COUNTRY_CODE, CA.EXAM_YEAR, CA.SKILL, (CANDSUM / CANDTOTAL) AS OUTCOME FROM CE_A CA
+INNER JOIN CE_B CB
+ON (CB.COUNTRY_CODE = CA.COUNTRY_CODE
+AND CB.EXAM_YEAR = CA.EXAM_YEAR
+AND CB.SKILL = CA.SKILL)</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="REGION">
+          <DataField>REGION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="COUNTRY_CODE">
+          <DataField>COUNTRY_CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EXAM_YEAR">
+          <DataField>EXAM_YEAR</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SKILL">
+          <DataField>SKILL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OUTCOME">
+          <DataField>OUTCOME</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="YearList">
+      <Query>
+        <DataSourceName>EnhancedResults</DataSourceName>
+        <CommandText>with yearlist as 
+(
+    select 2015 as year
+    union all
+    select yl.year + 1 as year
+    from yearlist yl
+    where yl.year + 1 &lt;= YEAR(GetDate())
+)
+
+select year from yearlist order by year;</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="year">
+          <DataField>year</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="Centre">
+      <DataType>String</DataType>
+      <Prompt>Centre</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Exam">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>CPE*</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Exam</Prompt>
+      <Hidden>true</Hidden>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>BEC Preliminary*</Value>
+            <Label>BEC Preliminary</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>BEC Vantage*</Value>
+            <Label>BEC Vantage</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>BEC Higher*</Value>
+            <Label>BEC Higher</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB BEC Preliminary*</Value>
+            <Label>CB BEC Preliminary</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB BEC Vantage*</Value>
+            <Label>CB BEC Vantage</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB BEC Higher*</Value>
+            <Label>CB BEC Higher</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>PET*</Value>
+            <Label>PET</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>PET for Schools*</Value>
+            <Label>PET for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>KET*</Value>
+            <Label>KET</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>KET for Schools*</Value>
+            <Label>KET for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>FCE*</Value>
+            <Label>FCE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>FCE for Schools*</Value>
+            <Label>FCE for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CAE*</Value>
+            <Label>CAE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CPE*</Value>
+            <Label>CPE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB PET*</Value>
+            <Label>CB PET</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB PET for Schools*</Value>
+            <Label>CB PET for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB KET*</Value>
+            <Label>CB KET</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB KET for Schools*</Value>
+            <Label>CB KET for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB FCE*</Value>
+            <Label>CB FCE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB FCE for Schools*</Value>
+            <Label>CB FCE for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB CAE*</Value>
+            <Label>CB CAE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB CPE*</Value>
+            <Label>CB CPE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>YLE Starters</Value>
+            <Label>YLE Starters</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>YLE Movers</Value>
+            <Label>YLE Movers</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>YLE Flyers</Value>
+            <Label>YLE Flyers</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Year">
+      <DataType>String</DataType>
+      <Prompt>Year</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>YearList</DataSetName>
+          <ValueField>year</ValueField>
+          <LabelField>year</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>d609d612-42b0-4146-b2e9-5818e0008878</rd:ReportID>
+</Report>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>f2d87652-d802-43c3-b8c0-20f28ad3d986</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PrepareForBuildDependsOn>
+    </PrepareForBuildDependsOn>
+  </PropertyGroup>
+  <Import Condition=" Exists('Deployment.targets') " Project="Deployment.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <!-- vertag<:>start tokens<:>maj.min -->
+  <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
+  <!-- vertag<:>end -->
+  <ItemGroup>
+    <None Include="Deployment.targets">
+      <Visible>False</Visible>
+    </None>
+    <Content Include="Deploy-AzureResourceGroup.ps1" />
+    <Content Include="LogicApp.json" />
+    <Content Include="LogicApp.parameters.json" />
+    <None Include="LogicApp.DR2.parameters.json" />
+    <None Include="LogicApp.DEV4.parameters.json" />
+    <None Include="LogicApp.DEV3.parameters.json" />
+    <None Include="LogicApp.SEL3.parameters.json" />
+    <None Include="LogicApp.DEV.parameters.json" />
+    <None Include="LogicApp.DEV2.parameters.json" />
+    <None Include="LogicApp.DR.parameters.json" />
+    <None Include="LogicApp.PERF.parameters.json" />
+    <None Include="LogicApp.PROD.parameters.json" />
+    <None Include="LogicApp.SEL.parameters.json" />
+    <None Include="LogicApp.SUP.parameters.json" />
+    <None Include="LogicApp.UAT.parameters.json" />
+  </ItemGroup>
+  <Target Name="GetReferenceAssemblyPaths" />
+</Project>

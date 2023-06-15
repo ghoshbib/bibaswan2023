@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- These are the default MSBuild Task Projects-->
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+  <Import Project="$(MSBuildExtensionsPath)\UCLES.MSBuild.Tasks\UCLES.MSBuild.Tasks.proj" />
+  <Import Project="$(MSBuildProjectDirectory)\deploy\Azure_DeploymentScripts\dependencies\MSBuild.ExtensionPack.tasks" />
+  <Import Project="$(MSBuildProjectDirectory)\Metrica.build.props"/>
+  
+  <Target Name="Default" DependsOnTargets="CIBuild" />
+  <!-- continuous integration only build - tests will be done by another build task in TC - no deployment files created -->
+  <Target Name="CIBuild" DependsOnTargets="Clean;Build" />
+    
+  <Target Name="DeploymentBuild"  DependsOnTargets="Clean;Build;Package;CommitArtifacts" />
+
+  <!-- deploy will build code, scripts and create deployment files -->
+
+  <Target Name="Clean" >
+    <!-- Clean source tree -->
+	<Message Text="Starting to clean %(VSSolution.Identity) files."/>
+    <MSBuild Projects="%(VSSolution.Identity)"
+         Targets="Clean"
+         Properties="Configuration=$(Config)"/>
+  </Target>
+
+  <Target Name="Build">
+    <Message Text="Versioning Assembly"/>
+    <UCLES.MSBuild.Tasks.VersionStamp Version="$(BUILD_NUMBER)" FileVersion="$(BUILD_NUMBER)" File="%(AssemblyInfoForVersioning.Identity)" />
+    
+    <MSBuild Projects="%(VSSolution.Identity)" Properties="Configuration=$(Config)"/>
+   </Target>
+   
+  <Target Name="Package">
+	<Message Text="Packaging %(Web.Name)"/>
+    <!-- publish web (websites & winservices) to deployment directory -->
+    <MSBuild Projects="%(Web.Identity)"
+         Targets="ResolveReferences;_CopyWebApplication;_BuiltWebOutputGroupOutput"
+         Properties="Configuration=$(Config);WebProjectOutputDir=$(ArtifactsFolder)\%(Web.Name)\;OutDir=$(ArtifactsFolder)\%(Web.Name)\bin\" >
+    </MSBuild>
+ 
+	<Message Text="Packaging %(WinService.Name)"/>
+    <!-- publish WinService to deployment directory -->
+    <MSBuild Projects="%(WinService.Identity)"
+             Properties="Configuration=$(Config);OutputPath=$(ArtifactsFolder)\%(WinService.Name)\">
+    </MSBuild>
+
+	<Message Text="Packaging %(WinAdminService.Name)"/>
+    <!-- publish WinAdminService to deployment directory -->
+    <MSBuild Projects="%(WinAdminService.Identity)"
+             Properties="Configuration=$(Config);OutputPath=$(ArtifactsFolder)\%(WinAdminService.Name)\">
+    </MSBuild>
+	
+    <!-- publish Testing to deployment directory -->
+    <MSBuild Projects="%(Testing.Identity)"
+             Properties="Configuration=$(Config);OutputPath=$(ArtifactsFolder)\%(Testing.Name)\">
+    </MSBuild>
+    
+    <!-- publish Metrica services to deployment directory -->
+    <Message Text="Packaging %(MetricaServices.Identity)"/>
+    <MSBuild Projects="%(MetricaServices.Identity)"
+         Targets="Rebuild;_WPPCopyWebApplication"
+         Properties="Configuration=$(Config);WebProjectOutputDir=$(ArtifactsFolder)\%(MetricaServices.Name)\;OutDir=$(ArtifactsFolder)\%(MetricaServices.Name)\bin\" >
+    </MSBuild>
+	<!-- publish Metrica Testdelivery WebSite to deployment directory -->
+	<Message Text="Packaging %(MetricaTestDeliverySite.Identity)"/>
+    <MSBuild Projects="%(MetricaTestDeliverySite.Identity)"
+         Targets="Rebuild;_WPPCopyWebApplication"
+         Properties="Configuration=$(Config);WebProjectOutputDir=$(ArtifactsFolder)\%(MetricaTestDeliverySite.Name)\;OutDir=$(ArtifactsFolder)\%(MetricaTestDeliverySite.Name)\bin\" >
+    </MSBuild>
+    
+    
+    <ItemGroup>
+        <FilesToCopy Include="%(web.ProjectPath)bin\wnvinternal.dat"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(ArtifactsFolder)\%(Web.Name)\bin\" />
+    
+	
+    <!-- Copy the environment properties to Win Service folder -->
+    <MakeDir Directories="$(ArtifactsFolder)\%(WinService.Name)\EnvironmentProperties" />
+    <ItemGroup>
+        <FilesToCopy Include="%(WinService.WinServiceProjectPath)EnvironmentProperties\**\*;
+                              %(WinService.WinServiceProjectPath)app.config.template;
+                              %(WinService.WinServiceProjectPath)log4net.config.template"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(ArtifactsFolder)\%(WinService.Name)\EnvironmentProperties" />
+    <ItemGroup>
+        <TelerikFilesToDelete Include="$(ArtifactsFolder)\%(WinService.Name)\Telerik*" />
+    </ItemGroup>
+    <Delete Files="@(TelerikFilesToDelete)" />
+    
+    <!-- Copy the environment properties to Win Admin Service folder -->
+    <MakeDir Directories="$(ArtifactsFolder)\%(WinAdminService.Name)\EnvironmentProperties" />
+    <ItemGroup>
+        <FilesToCopy Include="%(WinAdminService.WinAdminServiceProjectPath)EnvironmentProperties\**\*;
+                              %(WinAdminService.WinAdminServiceProjectPath)app.config.template;
+                              %(WinAdminService.WinAdminServiceProjectPath)log4net.config.template"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(ArtifactsFolder)\%(WinAdminService.Name)\EnvironmentProperties" />
+    <ItemGroup>
+        <TelerikFilesToDelete Include="$(ArtifactsFolder)\%(WinAdminService.Name)\Telerik*" />
+    </ItemGroup>
+    <Delete Files="@(TelerikFilesToDelete)" />
+    
+    <!-- Remove the Telerik files from projects where they are not necessary -->
+    <ItemGroup>
+        <TelerikFilesToDelete Include="$(ArtifactsFolder)\%(MetricaTestDeliverySite.Name)\bin\Telerik*" />
+    </ItemGroup>
+    <Delete Files="@(TelerikFilesToDelete)" />
+    
+    <ItemGroup>
+        <TelerikFilesToDelete Include="$(ArtifactsFolder)\%(MetricaServices.Name)\bin\Telerik*" />
+    </ItemGroup>
+    <Delete Files="@(TelerikFilesToDelete)" />
+	
+   
+    <!-- zip webs (websites & winservices) -->
+    <MSBuild.ExtensionPack.Compression.Zip 
+		TaskAction="Create" CompressPath="$(ArtifactsFolder)\%(Web.Name)" ZipFileName="$(ArtifactsFolder)\%(Web.Name).zip"/>
+    <MSBuild.ExtensionPack.Compression.Zip 
+		TaskAction="Create" CompressPath="$(ArtifactsFolder)\%(WinService.Name)" ZipFileName="$(ArtifactsFolder)\%(WinService.Name).zip"/>
+    <MSBuild.ExtensionPack.Compression.Zip 
+		TaskAction="Create" CompressPath="$(ArtifactsFolder)\%(WinAdminService.Name)" ZipFileName="$(ArtifactsFolder)\%(WinAdminService.Name).zip"/>
+	<MSBuild.ExtensionPack.Compression.Zip 
+		TaskAction="Create" CompressPath="$(ArtifactsFolder)\%(Testing.Name)" ZipFileName="$(ArtifactsFolder)\%(Testing.Name).zip"/>
+	<MSBuild.ExtensionPack.Compression.Zip 
+		TaskAction="Create" CompressPath="$(ArtifactsFolder)\%(MetricaServices.Name)" ZipFileName="$(ArtifactsFolder)\%(MetricaServices.Name).zip"/>
+	<MSBuild.ExtensionPack.Compression.Zip 
+		TaskAction="Create" CompressPath="$(ArtifactsFolder)\%(MetricaTestDeliverySite.Name)" ZipFileName="$(ArtifactsFolder)\%(MetricaTestDeliverySite.Name).zip"/>
+
+        
+    <!-- create dbscript to be run manually by dba -->
+	<Exec Command="TYPE $(SQLFolderAdmin)\*.sql >>  $(ArtifactsFolder)\dbscriptAdmin.sql"> </Exec>
+	<Exec Command="TYPE $(SQLFolderDelivery)\*.sql >>  $(ArtifactsFolder)\dbscriptDelivery.sql"> </Exec>
+
+	<!-- zip sql -->
+	<ItemGroup>
+      <FilesToZip Include="$(ArtifactsFolder)\*.sql"/>
+    </ItemGroup>
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" CompressFiles="@(FilesToZip)" RemoveRoot="$(ArtifactsFolder)" ZipFileName="$(ArtifactsFolder)\SQL.zip"/>
+	<Delete Files="$(ArtifactsFolder)\dbscriptAdmin.sql" />
+	<Delete Files="$(ArtifactsFolder)\dbscriptDelivery.sql" />
+
+    <!-- clean up deployment folder -->
+    <RemoveDir Directories="$(ArtifactsFolder)\%(Web.Name)" />
+    <RemoveDir Directories="$(ArtifactsFolder)\%(WinService.Name)" />
+    <RemoveDir Directories="$(ArtifactsFolder)\%(WinAdminService.Name)" />
+    <RemoveDir Directories="$(ArtifactsFolder)\%(Testing.Name)" />
+    <RemoveDir Directories="$(ArtifactsFolder)\%(MetricaServices.Name)" />
+    <RemoveDir Directories="$(ArtifactsFolder)\%(MetricaTestDeliverySite.Name)" />
+  </Target>
+
+  <Target Name="CommitArtifacts" >
+    <MSBuild.ExtensionPack.Compression.Zip TaskAction="Create" 
+                                           CompressPath="$(MSBuildProjectDirectory)\Deploy" 
+                                           ZipFileName="$(MSBuildProjectDirectory)\$(DeployArchiveFilename)" />
+    <!-- For CBLA, we need to run the File Scrubber project -->
+    <Exec Command="$(MSBuildProjectDirectory)\Utilities\FileScrubber\FileScrubber\bin\$(Config)\FileScrubber.exe $(MSBuildProjectDirectory)\$(DeployArchiveFilename)"></Exec>
+    <Exec Command="move $(MSBuildProjectDirectory)\Utilities\FileScrubber\FileScrubber\bin\$(Config)\*.zip $(MSBuildProjectDirectory)"> </Exec>
+    <Delete Files="$(MSBuildProjectDirectory)\$(DeployArchiveFilename)" />
+  </Target>
+
+  <Target Name="Test" >
+    <ItemGroup>
+      <Testingssemblies Include="C:\DotNet\Metrica\1.8\Deploy\Artifacts\Testing\Metrica.Selenium.Test.dll" />
+    </ItemGroup>
+    
+    <!-- run unit tests-->
+    <Message Text="Assemblie to run @(Testingssemblies)"/>
+    <NUnit Assemblies="@(Testingssemblies)" ToolPath="C:\Program Files (x86)\NUnit 2.6.3\bin" />
+    
+  </Target>
+</Project>

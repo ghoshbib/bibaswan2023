@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition">
+  <Description />
+  <DataSet Name="AccumulatedScores">
+    <Query>
+      <DataSourceReference>MetricaLiveQA</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@FromDate">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+          <rd:IsMultiValued>false</rd:IsMultiValued>
+        </DataSetParameter>
+        <DataSetParameter Name="@Project">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+          <rd:IsMultiValued>false</rd:IsMultiValued>
+        </DataSetParameter>
+        <DataSetParameter Name="@ToDate">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Object</rd:DbType>
+          <rd:IsMultiValued>false</rd:IsMultiValued>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>WITH TotalScores AS
+(
+select T.PRJ_ID, T.TST_ID, TIR.TIN_ID, TIN.TIN_USER_ID, TIN.TIN_WHEN_STARTED, SUM(TIR_SCORE) as Total_Score from test_instance_responses tir
+inner join TEST_INSTANCES tin
+on tin.tin_id = tir.tin_id
+inner join TESTS t
+on t.tst_id = tin.TST_ID
+group by t.prj_id, T.TST_ID, tir.tin_id, tin_user_id, TIN.TIN_WHEN_STARTED
+)
+SELECT TS.PRJ_ID, TS.TST_ID, TS.TIN_ID, TS.TIN_USER_ID, TS.TIN_WHEN_STARTED, TS.Total_Score, U.USR_LOGIN, LTRIM(RTRIM(U.USR_FIRSTNAME + ' ' + U.USR_SURNAME)) AS CANDIDATE
+FROM TotalScores TS
+INNER JOIN USERS U
+ON U.USR_ID = TS.TIN_USER_ID
+WHERE TS.PRJ_ID = @Project
+AND CONVERT(VARCHAR(8), TS.TIN_WHEN_STARTED, 112) &gt;= @FromDate AND CONVERT(VARCHAR(8), TS.TIN_WHEN_STARTED, 112) &lt;= @ToDate
+ORDER BY TS.TIN_WHEN_STARTED</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="PRJ_ID">
+        <DataField>PRJ_ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TST_ID">
+        <DataField>TST_ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TIN_ID">
+        <DataField>TIN_ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TIN_USER_ID">
+        <DataField>TIN_USER_ID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TIN_WHEN_STARTED">
+        <DataField>TIN_WHEN_STARTED</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Total_Score">
+        <DataField>Total_Score</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="USR_LOGIN">
+        <DataField>USR_LOGIN</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="CANDIDATE">
+        <DataField>CANDIDATE</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

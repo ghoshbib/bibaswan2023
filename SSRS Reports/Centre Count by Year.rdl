@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Tablix Name="Tablix1">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>8.00271cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox9">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>No. Centres</Value>
+                              <Style>
+                                <FontWeight>Bold</FontWeight>
+                                <Color>Blue</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox9</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+            <TablixRow>
+              <Height>0.6cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="CENTRE_COUNT">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!CENTRE_COUNT.Value</Value>
+                              <Style>
+                                <Color>Blue</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>CENTRE_COUNT</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <KeepWithGroup>After</KeepWithGroup>
+            </TablixMember>
+            <TablixMember>
+              <Group Name="Details" />
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>CentreProductEligibility</DataSetName>
+        <Top>1.97266cm</Top>
+        <Height>1.2cm</Height>
+        <Width>8.00271cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
+      <Textbox Name="Textbox8">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="Test centre count to end of " &amp; Parameters!Year.Value</Value>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox8</rd:DefaultName>
+        <Height>1.97266cm</Height>
+        <Width>8.00271cm</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <VerticalAlign>Middle</VerticalAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <Height>1.24908in</Height>
+    <Style />
+  </Body>
+  <Width>3.15067in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="Pivotal">
+      <DataSourceReference>Pivotal</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>45b5f7e3-3813-4e70-b79d-e8e8cff58763</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="CentreProductEligibility">
+      <Query>
+        <DataSourceName>Pivotal</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Year">
+            <Value>=Parameters!Year.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Country">
+            <Value>=Parameters!Country.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Region">
+            <Value>=Parameters!Region.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ExamList">
+            <Value>=Parameters!ExamList.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT COUNT(*) AS CENTRE_COUNT FROM CENTRE_PRODUCT_MATRIX CPM
+INNER JOIN CENTRE CE
+ON CE.CENTRE_ID = CPM.CENTRE_ID
+INNER JOIN COUNTRY CN
+ON CN.COUNTRY_ID = CE.COUNTRY_ID
+LEFT JOIN CONTACT CO
+ON CO.CENTRE_ID = CPM.CENTRE_ID
+WHERE (YEAR(CE.RN_CREATE_DATE) &lt; @Year
+AND (CE.CENTRE_NAME NOT LIKE '%Dummy%'
+AND CE.CENTRE_NAME NOT LIKE '%Manpower%'
+AND CE.CENTRE_NAME NOT LIKE '%Venue%')
+AND (CE.CENTRE_NUMBER NOT LIKE '____A'
+AND CE.CENTRE_NUMBER NOT LIKE '____B'
+AND CE.CENTRE_NUMBER NOT LIKE '____C'
+AND CE.CENTRE_NUMBER NOT LIKE '____D'
+AND CE.CENTRE_NUMBER NOT LIKE '____E'
+AND CE.CENTRE_NUMBER NOT LIKE '____F'
+AND CE.CENTRE_NUMBER NOT LIKE 'EF___'
+AND CE.CENTRE_NUMBER NOT LIKE 'EFL__'
+AND CE.CENTRE_NUMBER NOT LIKE 'IEL__'
+AND CE.CENTRE_NUMBER NOT LIKE 'IW___'
+AND CE.CENTRE_NUMBER NOT LIKE 'OLE__'
+AND CE.CENTRE_NUMBER NOT LIKE 'PIV__'
+AND CE.CENTRE_NUMBER NOT LIKE 'TB___'
+AND CE.CENTRE_NUMBER NOT LIKE 'UK___')
+AND CE.STATUS_ &lt;&gt; 'Closed'
+AND CO.CONTACT_TYPE = 'Local secretary'
+AND CE.COUNTRY IN (@Country)
+AND CN.SUB_CONTINENT IN (@Region)
+AND ((CPM.BEC_Preliminary &lt;&gt; 'N' AND 'BEC Preliminary' IN (@ExamList))
+OR (CPM.BEC_Vantage &lt;&gt; 'N' AND 'BEC Vantage' IN (@ExamList))
+OR (CPM.BEC_Higher &lt;&gt; 'N' AND 'BEC Higher' IN (@ExamList))
+OR (CPM.CB_BEC_Preliminary &lt;&gt; 'N' AND 'CB BEC Preliminary' IN (@ExamList))
+OR (CPM.CB_BEC_Vantage &lt;&gt; 'N' AND 'CB BEC Vantage' IN (@ExamList))
+OR (CPM.CB_BEC_Higher &lt;&gt; 'N' AND 'CB BEC Higher' IN (@ExamList))
+OR (CPM.BULATS &lt;&gt; 'N' AND 'BULATS' IN (@ExamList))
+OR (CPM.CB_BULATS &lt;&gt; 'N' AND 'CB BULATS' IN (@ExamList))
+OR (CPM.BULATS_Online &lt;&gt; 'N' AND 'BULATS Online' IN (@ExamList))
+OR (CPM.YLE_Starters &lt;&gt; 'N' AND 'YLE Starters' IN (@ExamList))
+OR (CPM.YLE_Movers &lt;&gt; 'N' AND 'YLE Movers' IN (@ExamList))
+OR (CPM.YLE_Flyers &lt;&gt; 'N' AND 'YLE Flyers' IN (@ExamList))
+OR (CPM.CB_YLE_Starters &lt;&gt; 'N' AND 'CB YLE Starters' IN (@ExamList))
+OR (CPM.CB_YLE_Movers &lt;&gt; 'N' AND 'CB YLE Movers' IN (@ExamList))
+OR (CPM.CB_YLE_Flyers &lt;&gt; 'N' AND 'CB YLE Flyers' IN (@ExamList))
+OR (CPM.KET &lt;&gt; 'N' AND 'KET' IN (@ExamList))
+OR (CPM.KET_for_Schools &lt;&gt; 'N' AND 'KET for Schools' IN (@ExamList))
+OR (CPM.PET &lt;&gt; 'N' AND 'PET' IN (@ExamList))
+OR (CPM.PET_for_Schools &lt;&gt; 'N' AND 'PET for Schools' IN (@ExamList))
+OR (CPM.FCE &lt;&gt; 'N' AND 'FCE' IN (@ExamList))
+OR (CPM.FCE_for_Schools &lt;&gt; 'N' AND 'FCE for Schools' IN (@ExamList))
+OR (CPM.CAE &lt;&gt; 'N' AND 'CAE' IN (@ExamList))
+OR (CPM.CPE &lt;&gt; 'N' AND 'CPE' IN (@ExamList))
+OR (CPM.CB_KET &lt;&gt; 'N' AND 'CB KET' IN (@ExamList))
+OR (CPM.CB_KET_for_Schools &lt;&gt; 'N' AND 'CB KET for Schools' IN (@ExamList))
+OR (CPM.CB_PET &lt;&gt; 'N' AND 'CB PET' IN (@ExamList))
+OR (CPM.CB_PET_for_Schools &lt;&gt; 'N' AND 'CB PET for Schools' IN (@ExamList))
+OR (CPM.CB_FCE &lt;&gt; 'N' AND 'CB FCE' IN (@ExamList))
+OR (CPM.CB_FCE_for_Schools &lt;&gt; 'N' AND 'CB FCE for Schools' IN (@ExamList))
+OR (CPM.CB_CAE &lt;&gt; 'N' AND 'CB CAE' IN (@ExamList))
+OR (CPM.CB_CPE &lt;&gt; 'N' AND 'CB CPE' IN (@ExamList))
+OR (CPM.CaMLA_YLTE_Bronze &lt;&gt; 'N' AND 'CaMLA YLTE Bronze' IN (@ExamList))
+OR (CPM.CaMLA_YLTE_Silver &lt;&gt; 'N' AND 'CaMLA YLTE Silver' IN (@ExamList))
+OR (CPM.CaMLA_YLTE_Gold &lt;&gt; 'N' AND 'CaMLA YLTE Gold' IN (@ExamList))
+OR (CPM.TKT_Module_1 &lt;&gt; 'N' AND 'TKT Module 1' IN (@ExamList))
+OR (CPM.TKT_Module_2 &lt;&gt; 'N' AND 'TKT Module 2' IN (@ExamList))
+OR (CPM.CB_TKT_Module_3 &lt;&gt; 'N' AND 'TKT Module 3' IN (@ExamList))
+OR (CPM.CB_TKT_Module_1 &lt;&gt; 'N' AND 'CB TKT Module 1' IN (@ExamList))
+OR (CPM.CB_TKT_Module_2 &lt;&gt; 'N' AND 'CB TKT Module 2' IN (@ExamList))
+OR (CPM.CB_TKT_Module_3 &lt;&gt; 'N' AND 'CB TKT Module 3' IN (@ExamList))
+OR (CPM.IELTS &lt;&gt; 'N' AND 'IELTS' IN (@ExamList))
+OR (CPM.CBIELTS &lt;&gt; 'N' AND 'CBIELTS' IN (@ExamList))
+OR (CPM.CCPT &lt;&gt; 'N' AND 'CCPT' IN (@ExamList))
+OR (CPM.CELTA &lt;&gt; 'N' AND 'CELTA' IN (@ExamList))
+OR (CPM.CELTA_Course_Online &lt;&gt; 'N' AND 'CELTA Course Online' IN (@ExamList))
+OR (CPM.CPT_Online &lt;&gt; 'N' AND 'CPT Online' IN (@ExamList))
+OR (CPM.CPT_PB &lt;&gt; 'N' AND 'CPT PB' IN (@ExamList))
+OR (CPM.DELTA_Module_One &lt;&gt; 'N' AND 'DELTA Module One' IN (@ExamList))
+OR (CPM.DELTA_Module_Two &lt;&gt; 'N' AND 'DELTA Module Two' IN (@ExamList))
+OR (CPM.DELTA_Module_Three &lt;&gt; 'N' AND 'DELTA Module Three' IN (@ExamList))
+OR (CPM.DELTA_Module_Three_A &lt;&gt; 'N' AND 'DELTA Module Three A' IN (@ExamList))
+OR (CPM.ICELT &lt;&gt; 'N' AND 'ICELT' IN (@ExamList))
+OR (CPM.ICFE &lt;&gt; 'N' AND 'ICFE' IN (@ExamList))
+OR (CPM.IDLTM &lt;&gt; 'N' AND 'IDLTM' IN (@ExamList))
+OR (CPM.ILEC &lt;&gt; 'N' AND 'ILEC' IN (@ExamList))
+OR (CPM.SfL_Entry_1 &lt;&gt; 'N' AND 'SfL Entry 1' IN (@ExamList))
+OR (CPM.SfL_Entry_2 &lt;&gt; 'N' AND 'SfL Entry 2' IN (@ExamList))
+OR (CPM.SfL_Entry_3 &lt;&gt; 'N' AND 'SfL Entry 3' IN (@ExamList))
+OR (CPM.SfL_Level &lt;&gt; 'N' AND 'SfL Level' IN (@ExamList))
+OR (CPM.SfL_Level_1 &lt;&gt; 'N' AND 'SfL Level 1' IN (@ExamList))
+OR (CPM.SfL_Level_2 &lt;&gt; 'N' AND 'SfL Level 2' IN (@ExamList))
+OR (CPM.TKT &lt;&gt; 'N' AND 'TKT' IN (@ExamList))))</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="CENTRE_COUNT">
+          <DataField>CENTRE_COUNT</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Countries">
+      <Query>
+        <DataSourceName>Pivotal</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Region">
+            <Value>=Parameters!Region.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT DISTINCT Country
+FROM            Centre CE
+INNER JOIN COUNTRY CN
+ON CN.COUNTRY_ID = CE.COUNTRY_ID
+WHERE CN.SUB_CONTINENT IN (@Region)
+ORDER BY Country</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="COUNTRY">
+          <DataField>Country</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Region">
+      <Query>
+        <DataSourceName>Pivotal</DataSourceName>
+        <CommandText>SELECT DISTINCT SUB_CONTINENT
+FROM COUNTRY
+ORDER BY SUB_CONTINENT</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="SUB_CONTINENT">
+          <DataField>SUB_CONTINENT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Years">
+      <Query>
+        <DataSourceName>Pivotal</DataSourceName>
+        <CommandText>SELECT DISTINCT YEAR(RN_CREATE_DATE) AS CYEAR FROM CENTRE
+UNION ALL
+SELECT (YEAR(GETDATE()) + 1) AS NYEAR
+ORDER BY CYEAR DESC</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="CYEAR">
+          <DataField>CYEAR</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="Region">
+      <DataType>String</DataType>
+      <Prompt>Region (Sub-Continent)</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Region</DataSetName>
+          <ValueField>SUB_CONTINENT</ValueField>
+          <LabelField>SUB_CONTINENT</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Country">
+      <DataType>String</DataType>
+      <Prompt>Country</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Countries</DataSetName>
+          <ValueField>COUNTRY</ValueField>
+          <LabelField>COUNTRY</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="ExamList">
+      <DataType>String</DataType>
+      <Prompt>Exam List</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>BEC Preliminary</Value>
+            <Label>BEC Preliminary</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>BEC Vantage</Value>
+            <Label>BEC Vantage</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>BEC Higher</Value>
+            <Label>BEC Higher</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB BEC Preliminary</Value>
+            <Label>CB BEC Preliminary</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB BEC Vantage</Value>
+            <Label>CB BEC Vantage</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB BEC Higher</Value>
+            <Label>CB BEC Higher</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>BULATS</Value>
+            <Label>BULATS</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB BULATS</Value>
+            <Label>CB BULATS</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>BULATS Online</Value>
+            <Label>BULATS Online</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>YLE Starters</Value>
+            <Label>YLE Starters</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>YLE Movers</Value>
+            <Label>YLE Movers</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>YLE Flyers</Value>
+            <Label>YLE Flyers</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>KET</Value>
+            <Label>KET</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>KET for Schools</Value>
+            <Label>KET for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>PET</Value>
+            <Label>PET</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>PET for Schools</Value>
+            <Label>PET for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>FCE</Value>
+            <Label>FCE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>FCE for Schools</Value>
+            <Label>FCE for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CAE</Value>
+            <Label>CAE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CPE</Value>
+            <Label>CPE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB YLE Starters</Value>
+            <Label>CB YLE Starters</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB YLE Movers</Value>
+            <Label>CB YLE Movers</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB YLE Flyers</Value>
+            <Label>CB YLE Flyers</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB KET</Value>
+            <Label>CB KET</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB KET for Schools</Value>
+            <Label>CB KET for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB PET</Value>
+            <Label>CB PET</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB PET for Schools</Value>
+            <Label>CB PET for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB FCE</Value>
+            <Label>CB FCE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB FCE for Schools</Value>
+            <Label>CB FCE for Schools</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB CAE</Value>
+            <Label>CB CAE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB CPE</Value>
+            <Label>CB CPE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>IELTS</Value>
+            <Label>IELTS</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CBIELTS</Value>
+            <Label>CBIELTS</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CCPT</Value>
+            <Label>CCPT</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>ICELT</Value>
+            <Label>ICELT</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>ICFE</Value>
+            <Label>ICFE</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>IDLTM</Value>
+            <Label>IDLTM</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>ILEC</Value>
+            <Label>ILEC</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>SfL Entry 1</Value>
+            <Label>SfL Entry 1</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>SfL Entry 2</Value>
+            <Label>SfL Entry 2</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>SfL Entry 3</Value>
+            <Label>SfL Entry 3</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>SfL Level</Value>
+            <Label>SfL Level</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>SfL Level 1</Value>
+            <Label>SfL Level 1</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>SfL Level 2</Value>
+            <Label>SfL Level 2</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CaMLA YLTE Bronze</Value>
+            <Label>CaMLA YLTE Bronze</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CaMLA YLTE Silver</Value>
+            <Label>CaMLA YLTE Silver</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CaMLA YLTE Gold</Value>
+            <Label>CaMLA YLTE Gold</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>TKT</Value>
+            <Label>TKT</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>TKT Module 1</Value>
+            <Label>TKT Module 1</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>TKT Module 2</Value>
+            <Label>TKT Module 2</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>TKT Module 3</Value>
+            <Label>TKT Module 3</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB TKT Module 1</Value>
+            <Label>CB TKT Module 1</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB TKT Module 2</Value>
+            <Label>CB TKT Module 2</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CB TKT Module 3</Value>
+            <Label>CB TKT Module 3</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CELTA</Value>
+            <Label>CELTA</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CELTA Course Online</Value>
+            <Label>CELTA Course Online</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CPT Online</Value>
+            <Label>CPT Online</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>CPT PB</Value>
+            <Label>CPT PB</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>DELTA Module One</Value>
+            <Label>DELTA Module One</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>DELTA Module Two</Value>
+            <Label>DELTA Module Two</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>DELTA Module Three</Value>
+            <Label>DELTA Module Three</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>DELTA Module Three A</Value>
+            <Label>DELTA Module Three A</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Year">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Years</DataSetName>
+          <ValueField>CYEAR</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Prior to start of</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Years</DataSetName>
+          <ValueField>CYEAR</ValueField>
+          <LabelField>CYEAR</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>13fc59ef-d5e1-44d2-b05e-b80b0cc4058e</rd:ReportID>
+</Report>

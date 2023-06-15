@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Tablix Name="Tablix1">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>16.83723cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>9.76642cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Rectangle Name="Rectangle1">
+                      <ReportItems>
+                        <Subreport Name="SectionDetails">
+                          <ReportName>Section Configuration Report</ReportName>
+                          <Parameters>
+                            <Parameter Name="TestID">
+                              <Value>=Parameters!TestID.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                          <Top>2.77496cm</Top>
+                          <Left>1.13061cm</Left>
+                          <Height>1.83208cm</Height>
+                          <Width>14.1188cm</Width>
+                          <Visibility>
+                            <Hidden>=Parameters!SectionData.Value = "No"</Hidden>
+                          </Visibility>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Subreport>
+                        <Subreport Name="TestContent">
+                          <ReportName>Content Configuration Report</ReportName>
+                          <Parameters>
+                            <Parameter Name="TestID">
+                              <Value>=Parameters!TestID.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                          <Top>5.2885cm</Top>
+                          <Left>1.13125cm</Left>
+                          <Height>1.83209cm</Height>
+                          <Width>14.11816cm</Width>
+                          <ZIndex>1</ZIndex>
+                          <Visibility>
+                            <Hidden>=Parameters!SessionGroup.Value = "&lt;No Session Data&gt;"</Hidden>
+                          </Visibility>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Subreport>
+                        <Subreport Name="SessionGroups">
+                          <ReportName>Session Group Configuration Report</ReportName>
+                          <Parameters>
+                            <Parameter Name="TestID">
+                              <Value>=Parameters!TestID.Value</Value>
+                            </Parameter>
+                            <Parameter Name="SessionGroup">
+                              <Value>=Parameters!SessionGroup.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                          <Top>7.85496cm</Top>
+                          <Left>1.13125cm</Left>
+                          <Height>1.91146cm</Height>
+                          <Width>14.11752cm</Width>
+                          <ZIndex>2</ZIndex>
+                          <Visibility>
+                            <Hidden>=Parameters!SessionGroup.Value = "&lt;No Session Data&gt;"</Hidden>
+                          </Visibility>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Subreport>
+                        <Subreport Name="TestConfig">
+                          <ReportName>Test Configuration Report</ReportName>
+                          <Parameters>
+                            <Parameter Name="TestID">
+                              <Value>=Parameters!TestID.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                          <Left>1.13125cm</Left>
+                          <Height>2.09667cm</Height>
+                          <Width>14.11816cm</Width>
+                          <ZIndex>3</ZIndex>
+                          <Visibility>
+                            <Hidden>=Parameters!TestData.Value = "No"</Hidden>
+                          </Visibility>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Subreport>
+                      </ReportItems>
+                      <KeepTogether>true</KeepTogether>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <BackgroundColor>#e7e7d6</BackgroundColor>
+                      </Style>
+                    </Rectangle>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <Group Name="Details" />
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>TestParameters</DataSetName>
+        <Height>9.76642cm</Height>
+        <Width>16.83723cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
+    </ReportItems>
+    <Height>3.84505in</Height>
+    <Style />
+  </Body>
+  <Width>6.62883in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="MetricaAdminLive">
+      <DataSourceReference>MetricaAdminLive</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>dbb86ce2-6e7b-4274-b8c5-19b299d82eb7</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="MetricaDeliveryLive">
+      <DataSourceReference>MetricaDeliveryLive</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>00d1a39a-7136-446c-8a6c-cf1529ff7ab9</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="TestParameters">
+      <Query>
+        <DataSourceName>MetricaAdminLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@TestID">
+            <Value>=Parameters!TestID.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT * FROM TESTS
+WHERE TST_ID = @TestID</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="TST_ID">
+          <DataField>TST_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_TITLE">
+          <DataField>TST_TITLE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TTY_ID">
+          <DataField>TTY_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_RESULTS_CONTROL">
+          <DataField>TST_RESULTS_CONTROL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_WHEN_UPDATED">
+          <DataField>TST_WHEN_UPDATED</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="GRD_ID">
+          <DataField>GRD_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_UPDATED_BY">
+          <DataField>TST_UPDATED_BY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PRJ_ID">
+          <DataField>PRJ_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_PROGRESS_CONTROL">
+          <DataField>TST_PROGRESS_CONTROL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_TIME_ALLOWED">
+          <DataField>TST_TIME_ALLOWED</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TST_FORWARD_ONLY">
+          <DataField>TST_FORWARD_ONLY</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_NAVIGATION_MODE">
+          <DataField>TST_NAVIGATION_MODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_START_CONTROL">
+          <DataField>TST_START_CONTROL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_INDICATOR_CONTROL">
+          <DataField>TST_INDICATOR_CONTROL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_IS_SAMPLE">
+          <DataField>TST_IS_SAMPLE</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_NAVIGATE_INTERACTIONS">
+          <DataField>TST_NAVIGATE_INTERACTIONS</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="PRD_ID">
+          <DataField>PRD_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_INTRO_CONTROL1">
+          <DataField>TST_INTRO_CONTROL1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_INTRO_CONTROL2">
+          <DataField>TST_INTRO_CONTROL2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_INTRO_CONTROL3">
+          <DataField>TST_INTRO_CONTROL3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_CAN_ADD_NOTES">
+          <DataField>TST_CAN_ADD_NOTES</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_INTRO_CONTROL4">
+          <DataField>TST_INTRO_CONTROL4</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_INTRO_CONTROL5">
+          <DataField>TST_INTRO_CONTROL5</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_SHOW_RESULTS_TO_CANDIDATE">
+          <DataField>TST_SHOW_RESULTS_TO_CANDIDATE</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_ENABLE_SHUFFLING">
+          <DataField>TST_ENABLE_SHUFFLING</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_SHOW_RESULTS_TO_ADMIN">
+          <DataField>TST_SHOW_RESULTS_TO_ADMIN</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_AGGREGATION_ATTRIBUTE">
+          <DataField>TST_AGGREGATION_ATTRIBUTE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_SHOW_RESULTS_AT_END">
+          <DataField>TST_SHOW_RESULTS_AT_END</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_SHOW_SCORES">
+          <DataField>TST_SHOW_SCORES</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_AGGREGATION_CONTROL">
+          <DataField>TST_AGGREGATION_CONTROL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_RESULTS_DP">
+          <DataField>TST_RESULTS_DP</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="MAP_ID">
+          <DataField>MAP_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_MIN_INTERACTIONS">
+          <DataField>TST_MIN_INTERACTIONS</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TST_AGGREGATION_ATTRIBUTE_SETTINGS">
+          <DataField>TST_AGGREGATION_ATTRIBUTE_SETTINGS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_INTRO_TEXT">
+          <DataField>TST_INTRO_TEXT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_INTRO_HEADER">
+          <DataField>TST_INTRO_HEADER</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_HELP_TEXT">
+          <DataField>TST_HELP_TEXT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_RESULTS_TEXT">
+          <DataField>TST_RESULTS_TEXT</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_WEIGHTING_ATTRIBUTE">
+          <DataField>TST_WEIGHTING_ATTRIBUTE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_WEIGHTING_ATTRIBUTE1">
+          <DataField>TST_WEIGHTING_ATTRIBUTE1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_ATTRIBUTE1">
+          <DataField>TST_ATTRIBUTE1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_VALUE1">
+          <DataField>TST_VALUE1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_ATTRIBUTE2">
+          <DataField>TST_ATTRIBUTE2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_VALUE2">
+          <DataField>TST_VALUE2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_ATTRIBUTE3">
+          <DataField>TST_ATTRIBUTE3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_VALUE3">
+          <DataField>TST_VALUE3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_WEIGHT_SECOND_ATTRIBUTE">
+          <DataField>TST_WEIGHT_SECOND_ATTRIBUTE</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_REQUIRED_ATTRIBUTES">
+          <DataField>TST_REQUIRED_ATTRIBUTES</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_CAN_REVIEW">
+          <DataField>TST_CAN_REVIEW</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_ENABLE_LOGGING">
+          <DataField>TST_ENABLE_LOGGING</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_ITEM_COUNT_ATTRIBUTE">
+          <DataField>TST_ITEM_COUNT_ATTRIBUTE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_CAN_GENERATE_TRF">
+          <DataField>TST_CAN_GENERATE_TRF</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_SUMMARY_CONTROL">
+          <DataField>TST_SUMMARY_CONTROL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_PREPOPULATE_ALL">
+          <DataField>TST_PREPOPULATE_ALL</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_WARNING_TIME">
+          <DataField>TST_WARNING_TIME</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="TST_WHEN_COUNTS_UPDATED">
+          <DataField>TST_WHEN_COUNTS_UPDATED</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="TST_DICTIONARY_TYPE">
+          <DataField>TST_DICTIONARY_TYPE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MRL_ID">
+          <DataField>MRL_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_DISABLE_CUTPASTE">
+          <DataField>TST_DISABLE_CUTPASTE</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_SHOW_RESULTS_ON_REVIEW">
+          <DataField>TST_SHOW_RESULTS_ON_REVIEW</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="MTY_ID">
+          <DataField>MTY_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_RESULTS_DOCUMENTS">
+          <DataField>TST_RESULTS_DOCUMENTS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_ITEM_COUNT_ATTRIBUTE_VALUE">
+          <DataField>TST_ITEM_COUNT_ATTRIBUTE_VALUE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TST_IS_CERTIFICATION_TEST">
+          <DataField>TST_IS_CERTIFICATION_TEST</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_SCORE_IS_MEAN_OF_SCORE_GROUPS">
+          <DataField>TST_SCORE_IS_MEAN_OF_SCORE_GROUPS</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="TST_MINIMUM_TEST_SCORE">
+          <DataField>TST_MINIMUM_TEST_SCORE</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="TST_APPLY_CAMBRIDGE_SCALE">
+          <DataField>TST_APPLY_CAMBRIDGE_SCALE</DataField>
+          <rd:TypeName>System.Byte</rd:TypeName>
+        </Field>
+        <Field Name="CFM_ID">
+          <DataField>CFM_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Products">
+      <Query>
+        <DataSourceName>MetricaAdminLive</DataSourceName>
+        <CommandText>SELECT PRD_ID, PRD_SHORT_DESCRIPTION, PROD = 
+ CASE PRD_ID
+  WHEN PRD_SHORT_DESCRIPTION THEN PRD_ID
+  WHEN 'BMAT Section 2 Assumed Subject Knowledge' THEN PRD_ID
+  ELSE PRD_ID + ' / ' + PRD_SHORT_DESCRIPTION
+ END
+FROM PRODUCTS
+UNION 
+SELECT '&lt;Any Product&gt;', '&lt;Any Product&gt;', '&lt;Any Product&gt;'</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="PRD_ID">
+          <DataField>PRD_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PRD_SHORT_DESCRIPTION">
+          <DataField>PRD_SHORT_DESCRIPTION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PROD">
+          <DataField>PROD</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Tests">
+      <Query>
+        <DataSourceName>MetricaAdminLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Product">
+            <Value>=Parameters!Product.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT TST_ID FROM TESTS
+WHERE PRD_ID IN (@Product) OR @Product = '&lt;Any Product&gt;'</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="TST_ID">
+          <DataField>TST_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="SessionGroups">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@TestID">
+            <Value>=Parameters!TestID.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT DISTINCT SGP_NAME, SGP_START_DATE FROM SESSION_GROUPS SG
+INNER JOIN CONTENT C
+ON C.CNT_ID = SG.CNT_ID
+WHERE CNT_TEST_ID = @TestID
+UNION
+SELECT '&lt;No Session Data&gt;', NULL
+ORDER BY SGP_START_DATE</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="SGP_NAME">
+          <DataField>SGP_NAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SGP_START_DATE">
+          <DataField>SGP_START_DATE</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Attributes">
+      <Query>
+        <DataSourceName>MetricaAdminLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@TestID">
+            <Value>=Parameters!TestID.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT * FROM TEST_ATTRIBUTES
+WHERE TST_ID = @TestID</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="TST_ID">
+          <DataField>TST_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TAT_ID">
+          <DataField>TAT_ID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ATT_ID">
+          <DataField>ATT_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TAT_VALUE">
+          <DataField>TAT_VALUE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="Product">
+      <DataType>String</DataType>
+      <Prompt>Product</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Products</DataSetName>
+          <ValueField>PRD_ID</ValueField>
+          <LabelField>PROD</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="TestID">
+      <DataType>String</DataType>
+      <Prompt>Test ID</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Tests</DataSetName>
+          <ValueField>TST_ID</ValueField>
+          <LabelField>TST_ID</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="TestData">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Yes</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Test Data?</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>Yes</Value>
+            <Label>Yes</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>No</Value>
+            <Label>No</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="SectionData">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Yes</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Section Data?</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>Yes</Value>
+            <Label>Yes</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>No</Value>
+            <Label>No</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="SessionGroup">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Session Group</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>SessionGroups</DataSetName>
+          <ValueField>SGP_NAME</ValueField>
+          <LabelField>SGP_NAME</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>ca1ef8b7-ce3c-4df0-ae61-93388c6c1038</rd:ReportID>
+</Report>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Tablix Name="Tablix1">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>0.48917cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>7.18312cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.2825cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Image Name="BulletPoints">
+                      <Source>Embedded</Source>
+                      <Value>="AABP1ARROW10x10"</Value>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>3pt</PaddingLeft>
+                        <PaddingRight>3pt</PaddingRight>
+                        <PaddingTop>3pt</PaddingTop>
+                        <PaddingBottom>3pt</PaddingBottom>
+                      </Style>
+                    </Image>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="STY_TEXT2">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!STY_TEXT2.Value</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <VerticalAlign>Bottom</VerticalAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>1pt</PaddingTop>
+                        <PaddingBottom>1pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <Group Name="Details" />
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>CPSQ_Text</DataSetName>
+        <Height>0.2825cm</Height>
+        <Width>7.67229cm</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Tablix>
+    </ReportItems>
+    <Height>0.11122in</Height>
+    <Style />
+  </Body>
+  <Width>3.02059in</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>2cm</LeftMargin>
+    <RightMargin>2cm</RightMargin>
+    <TopMargin>2cm</TopMargin>
+    <BottomMargin>2cm</BottomMargin>
+    <ColumnSpacing>0.13cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="MetricaDeliveryLive">
+      <DataSourceReference>MetricaDeliveryLive</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>4c792d99-23be-401d-963a-85ce08ec53cb</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="CPSQ_Text">
+      <Query>
+        <DataSourceName>MetricaDeliveryLive</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Instance">
+            <Value>=Parameters!Instance.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Agg1">
+            <Value>=Parameters!Agg1.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Scl1">
+            <Value>=Parameters!Scl1.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Agg2">
+            <Value>=Parameters!Agg2.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Scl2">
+            <Value>=Parameters!Scl2.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Cmt">
+            <Value>=Parameters!Cmt.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Agg3">
+            <Value>=Parameters!Agg3.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Scl3">
+            <Value>=Parameters!Scl3.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Norm">
+            <Value>=Parameters!Norm.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Dev">
+            <Value>=Parameters!Dev.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Type">
+            <Value>=Parameters!Type.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>WITH SCORES AS
+(
+SELECT AGG.*, LEVEL =
+CASE
+ WHEN AGG.AGG_VALUE &lt;= 3 THEN 'Low'
+ WHEN AGG.AGG_VALUE &gt;= 4 AND AGG.AGG_VALUE &lt;= 7 THEN 'Ave'
+ WHEN AGG.AGG_VALUE &gt;= 8 THEN 'High'
+END FROM AGGREGATIONS AGG
+WHERE TIN_ID = @Instance
+AND AGG.AGG_ID IN (@Agg1, @Agg2, @Agg3)
+)
+SELECT STY_LEVEL, STY_TEXT2 FROM STUDENT_STYLES SS
+INNER JOIN SCORES SC
+ON SC.LEVEL = SS.STY_LEVEL
+WHERE ((SCL_ID = @Scl1 AND SC.AGG_ID = @Agg1)
+OR (SCL_ID = @Scl2 AND SC.AGG_ID = @Agg2)
+OR (SCL_ID = @Scl3 AND SC.AGG_ID = @Agg3))
+AND NRM_ID = @Norm
+AND CMT_ID = @Cmt
+AND STY_DEV_POINT = @Dev
+AND STY_RECORD_TYPE = @Type
+ORDER BY SCL_ID</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="STY_TEXT2">
+          <DataField>STY_TEXT2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STY_LEVEL">
+          <DataField>STY_LEVEL</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="Instance">
+      <DataType>String</DataType>
+      <Prompt>Instance</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Agg1">
+      <DataType>String</DataType>
+      <Prompt>Agg1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Scl1">
+      <DataType>String</DataType>
+      <Prompt>Scl1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Agg2">
+      <DataType>String</DataType>
+      <Prompt>Agg2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Scl2">
+      <DataType>String</DataType>
+      <Prompt>Scl2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Cmt">
+      <DataType>String</DataType>
+      <Prompt>Cmt</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Norm">
+      <DataType>String</DataType>
+      <Prompt>Norm</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Dev">
+      <DataType>String</DataType>
+      <Prompt>Dev</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Type">
+      <DataType>String</DataType>
+      <Prompt>Type</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Agg3">
+      <DataType>String</DataType>
+      <Prompt>Agg3</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Scl3">
+      <DataType>String</DataType>
+      <Prompt>Scl3</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <EmbeddedImages>
+    <EmbeddedImage Name="AABP1AMBER9x9">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAIAAABv85FHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAuIQAALiEBB1v8/wAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAYSURBVBhXY/w8iQEnAMrhQjglQOYNEX0Ao4Ru7x1z9JIAAAAASUVORK5CYII=</ImageData>
+    </EmbeddedImage>
+    <EmbeddedImage Name="AABP1LGRN9x9">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAIAAABv85FHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAuIQAALiEBB1v8/wAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAWSURBVBhXY9xxYxsDLgCUw4UYhoEcANwtpfhGW9Z3AAAAAElFTkSuQmCC</ImageData>
+    </EmbeddedImage>
+    <EmbeddedImage Name="AABP1GREEN9x9">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAIAAABv85FHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAuIQAALiEBB1v8/wAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAZSURBVBhXY2SY5sCAEwDlcCGcEiDzhoY+ABdJPQjT4rWrAAAAAElFTkSuQmCC</ImageData>
+    </EmbeddedImage>
+    <EmbeddedImage Name="AABP1TICK10x10">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGPC/xhBQAAAG9JREFUKFNjYCAOWBOjrAGoKIGQwolABdOBmAWfwk6g5D4g5sCnqAAo+RyI5ZAVuQM53UCsBRX0A9J/gdgT3aSZQIH/QFwNVfwbSPdgs44Pas0dIH0XiK8BMTsud5VBTQWZbI/P8bxAyUtAPAGXIgDZyhMNDuUHRgAAAABJRU5ErkJggg==</ImageData>
+    </EmbeddedImage>
+    <EmbeddedImage Name="AABP1ARROW10x10">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAuIQAALiEBB1v8/wAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC2SURBVChTdZAxDoMgGIUJk5dhYdCkJyFOXMkruJPIEYhxMBB0cJAFBy9goosxsf0pTWPT9g0M//ce/wNUVZVz7v5HaBgGIUTbtt77bw+CkTFmWRZrbV3X0zRdTQGP4xij27Z1Xdc0zTzP0RTwvu9a6/M842hd177vlVKQCRhUlmWaprensiyjlMJZFEXAx3EAQxcxxqDs63JoHlGSJJxzWP9uF9KEEIxxnucx8dFcSgkAnvTzYx705uZTCHzDzQAAAABJRU5ErkJggg==</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>86e1c4ca-624a-435b-a9c3-e23ad72f7e79</rd:ReportID>
+</Report>
