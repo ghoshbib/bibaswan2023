@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build Stage') {
             steps {
-                bat "dotnet build project: 'JenkinsWebApplication/JenkinsWebApplicationDemo.sln', sdk: '.NET 6'"
+                bat "dotnet build project: 'JenkinsWebApplicationDemo.sln', sdk: '.NET 6'"
             }
         }
        
