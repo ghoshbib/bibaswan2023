@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build Stage') {
             steps {
-                bat "dotnet build '${WORKSPACE}\\JenkinsWebApplication\\JenkinsWebApplicationDemo.sln' -c Release -o out"
+                bat "dotnet build '${WORKSPACE}\\JenkinsWebApplication\\JenkinsWebApplicationDemo\\JenkinsWebApplicationDemo.csproj' -c Release -o out"
             }
         }
        
