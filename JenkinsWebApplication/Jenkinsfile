@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build Stage') {
             steps {
-                bat "dotnet JenkinsWebApplicationDemo.sln /t:Build /p:Configuration='Release'"
+                bat "dotnet JenkinsWebApplication/JenkinsWebApplicationDemo.sln /t:Build /p:Configuration='Release'"
             }
         }
        
