@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build Stage') {
             steps {
-                bat "dotnet build C:\\Program Files\\dotnet\\sdk\\7.0.304\\MSBuild.dll -maxcpucount -verbosity:m -restore -consoleloggerparameters:Summary project: 'JenkinsWebApplicationDemo.sln', sdk: '.NET 6' -distributedlogger:Microsoft.DotNet.Tools.MSBuild.MSBuildLogger,C:\\Program Files\\dotnet\\sdk\\7.0.304\\dotnet.dll*Microsoft.DotNet.Tools.MSBuild.MSBuildForwardingLogger,C:\\Program Files\\dotnet\\sdk\\7.0.304\\dotnet.dll"
+                bat "dotnet build C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe JenkinsWebApplicationDemo.sln"
             }
         }
        
